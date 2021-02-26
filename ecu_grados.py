@@ -10,7 +10,7 @@ def arregla_div(valor):
         return valor
     return float(valor)
 
-
+# Prueba de GIT
 
 def arregla_ecu(x):
     dic_ecu = {}
