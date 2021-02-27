@@ -1,5 +1,6 @@
 
-j1 = '3x^2 + 2x - 15'
+x1 = '- 5x + 100'
+x2 = '- 4x + 45'
 
 # Arregla Ecuaciones (Hasta cuadraticas)
 def arregla_div(valor):
@@ -10,7 +11,6 @@ def arregla_div(valor):
         return valor
     return float(valor)
 
-# Prueba de GIT
 
 def arregla_ecu(x):
     dic_ecu = {}
@@ -75,8 +75,11 @@ def igualar_1er(x1,x2):
     var_sum = dic_1er['var1'] - dic_2da['var1']
     inde_sum = dic_2da['inde'] - dic_1er['inde']
     
-    return inde_sum / var_sum
+    # Hallando los valores de equilibrio
+    p = inde_sum / var_sum
+    q = (dic_1er['var1'] * p) + dic_1er['inde']
 
+    return p, q
 
 
 def igualar_2do(x1,x2):
@@ -98,5 +101,7 @@ def igualar_2do(x1,x2):
 
     return y1, y2
 
-y1, y2 = ecu_cuadrada(arregla_ecu(j1))
-print(y1,y2)
+
+n,m = igualar_1er(x1,x2)
+print(n,m)
+

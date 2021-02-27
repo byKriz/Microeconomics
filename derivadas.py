@@ -1,11 +1,7 @@
 from constants import *
-from ecu_grados import *
 
 y = 2*x**3 + 4*x**2
 y2 = (1) / (7*x)
-"""
-No complicarse la vida con las derivadas
-"""
 
 # Calculos
 def derivar(y):
