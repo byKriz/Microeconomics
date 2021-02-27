@@ -2,7 +2,7 @@ from constants import *
 from ecu_grados import *
 
 y = 2*x**3 + 4*x**2
-
+y2 = (1) / (7*x)
 """
 No complicarse la vida con las derivadas
 """
@@ -28,11 +28,5 @@ def conver2dadev(y):
 
 
 
-print(derivar(y))
-print(conver1erdev(y))
-print(len(conver1erdev(y).split()))
-
-print()
-print(segderivar(y))
-print(conver2dadev(y))
-
+print(derivar(y2))
+print(conver1erdev(y2))
