@@ -1,9 +1,14 @@
 from sympy import Symbol
 import numpy as np
 
+
+# Variables Económicas
+
 x = Symbol('x')
-j = Symbol('j')
-# Hola
-"""
-Hola como va la banda
-"""
+K = Symbol('K')
+L = Symbol('L')
+k = Symbol('k')
+l = Symbol('l')
+c = Symbol('c')
+q = Symbol('q')
+
