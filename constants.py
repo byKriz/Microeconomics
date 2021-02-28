@@ -12,5 +12,11 @@ l = Symbol('l')
 c = Symbol('c')
 q = Symbol('q')
 p = Symbol('p')
+λ = Symbol('λ')
 
-# Pruebas Xd
+
+dic_sym = {
+    'x':x, 'K':K, 'L':L,
+    'k':k, 'l':l, 'c':c,
+    'q':q, 'p':p
+}
