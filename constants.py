@@ -12,3 +12,5 @@ l = Symbol('l')
 c = Symbol('c')
 q = Symbol('q')
 p = Symbol('p')
+
+# Pruebas Xd
