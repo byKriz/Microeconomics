@@ -1,6 +1,6 @@
 from constants import *
 
-def arregla_div(valor):
+def _arregla_div(valor):
     if '/' in str(valor):
         valor = valor.split('/')
         return float(valor[0]) / float(valor[1])
@@ -10,8 +10,8 @@ def arregla_div(valor):
 class EcuacionLineal:
     
     def __init__(self,var,inde=0,sym='x'):
-            self.var = arregla_div(var)
-            self.inde = arregla_div(inde)
+            self.var = _arregla_div(var)
+            self.inde = _arregla_div(inde)
             self.sym = dic_sym[sym]
             self.func = self.var * self.sym + self.inde
 
@@ -35,9 +35,9 @@ class EcuacionLineal:
 
 class Ecuacion2doGrado(EcuacionLineal):
     def __init__(self,var2,var,inde=0,sym='x'):
-        self.var2 = arregla_div(var2)
-        self.var = arregla_div(var)
-        self.inde = arregla_div(inde)
+        self.var2 = _arregla_div(var2)
+        self.var = _arregla_div(var)
+        self.inde = _arregla_div(inde)
         self.sym = dic_sym[sym]
         self.func = (self.var2 * self.sym ** 2) + (self.var * self.sym) + self.inde
 
@@ -65,7 +65,7 @@ class Ecuacion2doGrado(EcuacionLineal):
         if inde >= 0:
             sig2 = '+'
 
-        # Arreglando detalles
+        # Arreglando detalles de salida
         if var == 0 and inde != 0:
             return f'{self.var2}{str(self.sym)}^2 {sig2} {inde}'
         elif var != 0 and inde == 0:
