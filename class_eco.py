@@ -43,9 +43,8 @@ class Ecuacion2doGrado(EcuacionLineal):
 
     def derivate_2(self):
         y = self.func
-        deri_1 = y.diff(self.sym)
-        deri_2 = deri_1.diff(self.sym)
-        return deri_2
+        deri = y.diff(self.sym,2)
+        return deri
 
     def view(self):
         sig1 = None
@@ -77,7 +76,6 @@ class Ecuacion2doGrado(EcuacionLineal):
 
 ecu2 = Ecuacion2doGrado(1,0,0)
 print(ecu2.view())
-print(ecu2.derivate())
-print(ecu2.clean_deri())
 print(ecu2.derivate_2())
+
     
