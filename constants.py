@@ -1,6 +1,4 @@
 from sympy import Symbol
-import numpy as np
-
 
 # Variables Económicas
 
