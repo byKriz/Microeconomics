@@ -14,6 +14,13 @@ t = Symbol('t')
 λ = Symbol('λ')
 
 
+# Variables de estabilidad
+Pini = Symbol('Po')
+Peq = Symbol('Peq')
+Kc = Symbol('K')
+Pvar = Symbol('P')
+
+
 dic_sym = {
     'x':x, 'K':K, 'L':L,
     'k':k, 'l':l, 'c':c,

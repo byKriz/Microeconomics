@@ -73,9 +73,3 @@ class Ecuacion2doGrado(EcuacionLineal):
             return f'{self.var2}{str(self.sym)}^2'
         return f'{self.var2}{str(self.sym)}^2 {sig1} {var}{str(self.sym)} {sig2} {inde}'
 
-
-ecu2 = Ecuacion2doGrado(1,0,0)
-print(ecu2.view())
-print(ecu2.derivate_2())
-
-    
