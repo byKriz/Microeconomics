@@ -44,12 +44,9 @@ def ecuacion_caracteristica(c,k=1,po=200,P_eq=1):
     Pht_1 = (Pini - Peq)
     Pht_2 = Pvar ** r
     Pht_view = f'({Pht_1})*{Pht_2}'
-    Pht = Pht_1 * Pht_2
-
     print(limp(Pht_view))
 
     # Ecuación general
-    Pg = Pht + Peq
     Pg_view = f'({Pht_1})*{Pht_2} + {Peq}'
     print(limp(Pg_view))
 

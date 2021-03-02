@@ -1,4 +1,6 @@
-from constants import *
+import numpy as np
+import matplotlib.pyplot as plt
+from constants import dic_sym
 
 def _arregla_div(valor):
     if '/' in str(valor):
@@ -32,9 +34,16 @@ class EcuacionLineal:
             return f'{self.var}{str(self.sym)}'
         return f'{self.var}{str(self.sym)} + {self.inde}'
 
+    def showg(self,rgb='red'):
+        fx = lambda x : (self.var * x) + self.inde
+        x = np.linspace(0,50,100)
+        graphic = fx(x)
+        plt.plot(x,graphic,color=f'{rgb}')
+        plt.show()
+
 
 class Ecuacion2doGrado(EcuacionLineal):
-    def __init__(self,var2,var,inde=0,sym='x'):
+    def __init__(self,var2,var=0,inde=0,sym='x'):
         self.var2 = _arregla_div(var2)
         self.var = _arregla_div(var)
         self.inde = _arregla_div(inde)
@@ -72,4 +81,12 @@ class Ecuacion2doGrado(EcuacionLineal):
         elif var == 0 and inde == 0:
             return f'{self.var2}{str(self.sym)}^2'
         return f'{self.var2}{str(self.sym)}^2 {sig1} {var}{str(self.sym)} {sig2} {inde}'
+
+    def showg(self,rgb='red'):
+        fx = lambda x : (self.var2 * x**2) + (self.var * x) + self.inde
+        x = np.linspace(0,50,100)
+        graphic = fx(x)
+        plt.plot(x,graphic,color=f'{rgb}')
+        plt.show()
+    
 
