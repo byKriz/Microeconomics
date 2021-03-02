@@ -1,6 +1,6 @@
 
-x1 = '- 5x + 100'
-x2 = '- 4x + 45'
+x1 = '-5x + 100'
+x2 = 'x^2 - 4x + 45'
 
 # Arregla Ecuaciones (Hasta cuadraticas)
 def arregla_div(valor):
@@ -27,13 +27,23 @@ def arregla_ecu(x):
             else:
                 dic_ecu['var2'] = 1.0
         elif 'x' in v:
-            if v.replace('x','') != '':
-                valor = x.split()[i-1] + v.replace('x','')
-                dic_ecu['var1'] = arregla_div(valor)
-            elif v.replace('x','') == '' and x.split()[i-1] == '-':
-                dic_ecu['var1'] = -1.0
+            if dic_ecu.get('var') == None:
+                if v.replace('x','') == '-':
+                    dic_ecu['var'] = -1.0
+                elif v.replace('x','') != '':
+                    valor = v.replace('x','')
+                    dic_ecu['var'] = arregla_div(valor)
+                else:
+                    dic_ecu['var'] = 1.0
+
             else:
-                dic_ecu['var1'] = 1.0
+                if v.replace('x','') != '':
+                    valor = x.split()[i-1] + v.replace('x','')
+                    dic_ecu['var1'] = arregla_div(valor)
+                elif v.replace('x','') == '' and x.split()[i-1] == '-':
+                    dic_ecu['var1'] = -1.0
+                else:
+                    dic_ecu['var1'] = 1.0
         elif 'x^2' not in v and 'x' not in v and '+' not in v and '-' not in v:
             valor = x.split()[i-1] + v
             dic_ecu['inde'] = arregla_div(valor)
@@ -102,6 +112,5 @@ def igualar_2do(x1,x2):
     return y1, y2
 
 
-n,m = igualar_1er(x1,x2)
-print(n,m)
+print(arregla_ecu(x2))
 
