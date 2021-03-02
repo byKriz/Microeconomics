@@ -1,6 +1,7 @@
+from constants import dic_sym
 
 x1 = '-5x + 100'
-x2 = 'x^2 - 4x + 45'
+x2 = 'p^2 - 4p + 45'
 
 # Arregla Ecuaciones (Hasta cuadraticas)
 def arregla_div(valor):
@@ -15,9 +16,16 @@ def arregla_div(valor):
 def arregla_ecu(x):
     dic_ecu = {}
 
+    # Adaptador de ecuación
+    if 'x' not in x:
+        for i in dic_sym:
+            if i in dic_sym:
+                x = x.replace(i,'x')
+
     # Descomponiendo
     for i, v in enumerate(x.split()):
         
+        # Descomponiendo variable cuadrada
         if 'x^2' in v:
             if v.replace('x^2','') == '-':
                 dic_ecu['var2'] = -1.0
@@ -26,6 +34,8 @@ def arregla_ecu(x):
                 dic_ecu['var2'] = arregla_div(valor)
             else:
                 dic_ecu['var2'] = 1.0
+        
+        # Descomponiendo varible lineal
         elif 'x' in v:
             if dic_ecu.get('var') == None:
                 if v.replace('x','') == '-':
@@ -44,6 +54,8 @@ def arregla_ecu(x):
                     dic_ecu['var1'] = -1.0
                 else:
                     dic_ecu['var1'] = 1.0
+        
+        # descomponiendo termino independiente
         elif 'x^2' not in v and 'x' not in v and '+' not in v and '-' not in v:
             valor = x.split()[i-1] + v
             dic_ecu['inde'] = arregla_div(valor)
