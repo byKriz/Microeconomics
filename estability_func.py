@@ -36,12 +36,12 @@ def estabilidad(qd,qs):
 # print(estabilidad(Qd,Qs))
 
 """Panteamiento de la ecuación de ajuste de equilibrio"""
-def ecuacion_caracteristica(c,k=1,po=200,P_eq=1):
+def ecuacion_caracteristica(c,k,po,P_eq):
     
     limp = lambda x: x.replace('**','^').replace('*','').replace('eq','*')
 
     # Ecuación de Pht
-    r = c*Kc
+    r = c*Kc*t
     Pht_1 = (Pini - Peq)
     Pht_2 = Pvar ** r
     Pht_view = f'({Pht_1})*{Pht_2}'
@@ -54,7 +54,8 @@ def ecuacion_caracteristica(c,k=1,po=200,P_eq=1):
     # Colocando los valores
     result = (po - P_eq) * Pvar**(c*k*t) + P_eq
     print(limp(str(result)))
-
+    
+    return result
 
 # 33.33P^0.15 + 166.67
 # 33.33 * Pvar**0.15 + 166.67
