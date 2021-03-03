@@ -8,8 +8,6 @@ def resolviendo_estabilidad():
     # Ingresamos los datos
     ingre_ecu1 = arregla_ecu(input('Ingresa la Ecuación de demanda: '))
     ingre_ecu2 = arregla_ecu(input('Ingresa la Ecuación de oferta: '))
-    k = float(input('Ingrese el valor de k: '))
-    po = float(input('Ingrese el Precio Inicial: '))
     
     # Creamos las ecuaciones
     ecu_d = EcuacionLineal(ingre_ecu1['var1'],ingre_ecu1['inde'],ingre_ecu1['sym'])
@@ -35,12 +33,13 @@ def resolviendo_estabilidad():
 
     # Planteamiento de la ecuación de ajuste de equilibrio
     print('Planteamiento de la ecuación de ajuste de equilibrio')
-    
+    k = float(input('Ingrese el valor de k: '))
+    po = float(input('Ingrese el Precio Inicial: '))
     ajust_eq = ecuacion_caracteristica(est[1],p[0],k,po)
 
 
 
-
+    con = input('desea continuar')
 
 resolviendo_estabilidad()
 

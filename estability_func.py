@@ -27,7 +27,7 @@ def equilibrio_lineal(qd,qs):
 def estabilidad(qd,qs):
     function = qd.func - qs.func
     derivative = function.diff(qs.sym)
-    return function, float(derivative)
+    return str(function).replace('*',''), float(derivative)
 
 
 """Planteamiento de la ecuación de ajuste de equilibrio"""
