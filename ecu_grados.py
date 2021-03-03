@@ -18,8 +18,9 @@ def arregla_ecu(x):
 
     # Adaptador de ecuación
     if 'x' not in x:
-        for i in dic_sym:
+        for i in x:
             if i in dic_sym:
+                dic_ecu['sym'] = i
                 x = x.replace(i,'x')
 
     # Descomponiendo
@@ -124,5 +125,5 @@ def igualar_2do(x1,x2):
     return y1, y2
 
 
-print(arregla_ecu(x1))
+# print(arregla_ecu(x1))
 
