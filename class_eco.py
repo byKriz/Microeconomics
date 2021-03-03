@@ -41,6 +41,12 @@ class EcuacionLineal:
         plt.plot(x,graphic,color=f'{rgb}')
         plt.show()
 
+    def element_g(self):
+        fx = lambda x : (self.var * x) + self.inde
+        x = np.linspace(0,50,100)
+        graphic = fx(x)
+        return x, graphic
+
 
 class Ecuacion2doGrado(EcuacionLineal):
     def __init__(self,var2,var=0,inde=0,sym='x'):
@@ -88,5 +94,11 @@ class Ecuacion2doGrado(EcuacionLineal):
         graphic = fx(x)
         plt.plot(x,graphic,color=f'{rgb}')
         plt.show()
+    
+    def element_g(self):
+        fx = lambda x : (self.var2 * x**2) + (self.var * x) + self.inde
+        x = np.linspace(0,50,100)
+        graphic = fx(x)
+        return x, graphic
     
 
