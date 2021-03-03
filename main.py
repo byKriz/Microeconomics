@@ -1,5 +1,6 @@
 from class_eco import EcuacionLineal, Ecuacion2doGrado
-from constants import Pini, Peq, Pvar, Kc
+from constants import Pini, Peq, Pvar, Kc, t
+from sympy import limit
 
 
 Qd = EcuacionLineal(-0.5,100,'p')
@@ -51,9 +52,14 @@ def ecuacion_caracteristica(c,k=1,po=200,P_eq=1):
     print(limp(Pg_view))
 
     # Colocando los valores
-    result = (po - P_eq) * Pvar**(c*k) + P_eq
+    result = (po - P_eq) * Pvar**(c*k*t) + P_eq
     print(limp(str(result)))
 
 
+# 33.33P^0.15 + 166.67
+# 33.33 * Pvar**0.15 + 166.67
+ecuacion_caracteristica(-0.3,0.5,200,166.67)
+print()
+lim = limit(33.33 * Pvar**(-0.15*t) + 166.67,t,0)
+print(lim)
 
-ecuacion_caracteristica(0.3,0.5,200,166.67)

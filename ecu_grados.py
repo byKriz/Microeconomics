@@ -1,6 +1,6 @@
 from constants import dic_sym
 
-x1 = '-5x + 100'
+x1 = '-x + 100'
 x2 = 'p^2 - 4p + 45'
 
 # Arregla Ecuaciones (Hasta cuadraticas)
@@ -37,14 +37,14 @@ def arregla_ecu(x):
         
         # Descomponiendo varible lineal
         elif 'x' in v:
-            if dic_ecu.get('var') == None:
+            if dic_ecu.get('var2') == None:
                 if v.replace('x','') == '-':
-                    dic_ecu['var'] = -1.0
+                    dic_ecu['var1'] = -1.0
                 elif v.replace('x','') != '':
                     valor = v.replace('x','')
-                    dic_ecu['var'] = arregla_div(valor)
+                    dic_ecu['var1'] = arregla_div(valor)
                 else:
-                    dic_ecu['var'] = 1.0
+                    dic_ecu['var1'] = 1.0
 
             else:
                 if v.replace('x','') != '':
@@ -124,5 +124,5 @@ def igualar_2do(x1,x2):
     return y1, y2
 
 
-print(arregla_ecu(x2))
+print(arregla_ecu(x1))
 
