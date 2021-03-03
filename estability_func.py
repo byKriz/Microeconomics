@@ -62,5 +62,5 @@ def ecuacion_caracteristica(c,k,po,P_eq):
 ecuacion_caracteristica(-0.3,0.5,200,166.67)
 print()
 lim = limit(33.33 * Pvar**(-0.15*t) + 166.67,t,0)
-print(lim)
+print(float(lim))
 
