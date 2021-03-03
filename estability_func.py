@@ -1,6 +1,6 @@
 from class_eco import EcuacionLineal, Ecuacion2doGrado
 from constants import Pini, Peq, Pvar, Kc, t
-from sympy import limit, Limit, oo
+from sympy import limit, Limit, oo, exp
 
 
 Qd = EcuacionLineal(-0.5,100,'p')
@@ -48,12 +48,19 @@ def ecuacion_caracteristica(c,P_eq,k,po):
 
     # Colocando los valores
     result = (po - P_eq) * Pvar**(c*k*t) + P_eq
+    p_sum = po - P_eq
+    coef = c * k
     print(f'Pt = {limp(str(result))}')
+    print()
+
+    # Comprobando el equilibrio
+    print('Comprobando El equilibrio: Cuando t tiende a oo')
+    comprovate = limit(p_sum * exp(coef * t * Pvar) + P_eq,t,oo)
+    print(f'lim = {limp(str(result))} = {round(comprovate,4)}')
+
     
     return result
 
-def limite(ecu):
-    return ''
 
 # ecuacion_caracteristica(-0.3,0.5,200,166.67)
 # print()

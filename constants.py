@@ -18,7 +18,7 @@ t = Symbol('t')
 Pini = Symbol('Po')
 Peq = Symbol('Peq')
 Kc = Symbol('K')
-Pvar = Symbol('P')
+Pvar = Symbol('P',positive=True)
 
 
 dic_sym = {
