@@ -58,6 +58,8 @@ def ecuacion_caracteristica(c,P_eq,k,po):
     print('Comprobando El equilibrio: Cuando t tiende a oo')
     comprovate = limit(p_sum * exp(coef * t * Pvar) + P_eq,t,oo)
     print(f'lim = {limp(str(result))} = {round(float(comprovate),4)}')
+    comprovate_2 = limit(p_sum * exp(coef * t * Pvar) + P_eq,t,1)
+    print(f'lim = {limp(str(result))} = {comprovate_2} --> t=1')
 
     
     return result
