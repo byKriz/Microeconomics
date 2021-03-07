@@ -3,6 +3,7 @@ from sympy import Symbol
 # Variables Económicas
 
 x = Symbol('x')
+y = Symbol('y')
 K = Symbol('K')
 L = Symbol('L')
 k = Symbol('k')

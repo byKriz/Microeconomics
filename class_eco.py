@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from constants import dic_sym
+from constants import dic_sym, λ, x, y
 
 def _arregla_div(valor):
     if '/' in str(valor):
@@ -101,4 +101,19 @@ class Ecuacion2doGrado(EcuacionLineal):
         graphic = fx(x)
         return x, graphic
     
+class MaxUtilidad:
+    
+    def __init__(self,fun_utilidad,fun_restric):
+        self.fun_utilidad = fun_utilidad
+        self.fun_restric = fun_restric
+        self.z = fun_utilidad - λ*(fun_restric)
+    
+    def derivate_x(self):
+        return self.z.diff(x)
+    
+    def derivate_y(self):
+        return self.z.diff(y)
+
+    def derivate_l(self):
+        return self.z.diff(λ)
 
