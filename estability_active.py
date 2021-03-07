@@ -35,11 +35,10 @@ def resolviendo_estabilidad():
     print('Planteamiento de la ecuación de ajuste de equilibrio')
     k = float(input('Ingrese el valor de k: '))
     po = float(input('Ingrese el Precio Inicial: '))
+    
     ajust_eq = ecuacion_caracteristica(est[1],p[0],k,po)
 
 
-
-    con = input('desea continuar')
 
 resolviendo_estabilidad()
 

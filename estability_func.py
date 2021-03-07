@@ -20,7 +20,8 @@ def equilibrio_lineal(qd,qs):
     if p > 0 and  q > 0:
         return round(p,4), round(q,4)
     else:
-        return 'No existe equilibrio'
+        print('No existe equilibrio')
+        return round(p,4), round(q,4)
 
 
 '''Estabilidad'''
@@ -56,7 +57,7 @@ def ecuacion_caracteristica(c,P_eq,k,po):
     # Comprobando el equilibrio
     print('Comprobando El equilibrio: Cuando t tiende a oo')
     comprovate = limit(p_sum * exp(coef * t * Pvar) + P_eq,t,oo)
-    print(f'lim = {limp(str(result))} = {round(comprovate,4)}')
+    print(f'lim = {limp(str(result))} = {round(float(comprovate),4)}')
 
     
     return result
