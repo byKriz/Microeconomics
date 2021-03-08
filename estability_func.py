@@ -28,7 +28,13 @@ def equilibrio_lineal(qd,qs):
 def estabilidad(qd,qs):
     function = qd.func - qs.func
     derivative = function.diff(qs.sym)
-    return str(function).replace('*',''), float(derivative)
+
+    if float(derivative) < 0:
+        equi = 'Estabilidad Estática: el equilibrio es globalmente estable'
+    elif float(derivative) > 0:
+        equi = 'Estabilidad Estática: el equilibrio es globalmente inestable'
+
+    return str(function).replace('*',''), float(derivative),equi
 
 
 """Planteamiento de la ecuación de ajuste de equilibrio"""

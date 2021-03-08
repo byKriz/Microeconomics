@@ -24,11 +24,12 @@ def resolviendo_estabilidad():
         pass
     print()
 
-    # Determinando el coeficiente de estabilidad
-    print('Determinando el coeficiente de estabilidad')
+    # Determinando la pendiende del excedente de demanda
+    print('Determinando la pendiende del excedente de demanda')
     est = estabilidad(ecu_d,ecu_o)
     print(f'E({ecu_d.sym}) = {est[0]}')
     print(f"E'({ecu_d.sym}) = {est[1]}")
+    print(est[2])
     print()
 
     # Planteamiento de la ecuación de ajuste de equilibrio
