@@ -3,9 +3,6 @@ from constants import Pini, Peq, Pvar, Kc, t
 from sympy import limit, Limit, oo, exp
 
 
-Qd = EcuacionLineal(-0.5,100,'p')
-Qs = EcuacionLineal(-0.2,50,'p')
-
 # Ejercicio de estabilidad
 ''' Determinar la existencia de equilibrio'''
 
@@ -38,9 +35,19 @@ def estabilidad(qd,qs):
 
 
 """Planteamiento de la ecuación de ajuste de equilibrio"""
-def ecuacion_caracteristica(c,P_eq,k,po):
+def ecuacion_caracteristica(c,P_eq,k,po,tvar=1):
     
-    limp = lambda x: x.replace('**','^').replace('*','').replace('eq','*')
+    limp = lambda x: x.replace('*exp','^').replace('**','^').replace('*','').replace('eq','*')
+    def comp_equ(lim,peq):
+        if lim == peq:
+            print('El equilibrio es estable')
+        else:
+            print('El equilibrio no es estable')
+
+    # Arreglos menores a tvar
+    if tvar == '':
+        tvar = 1
+
 
     # Ecuación de Pht
     r = c*Kc*t
@@ -63,16 +70,14 @@ def ecuacion_caracteristica(c,P_eq,k,po):
     # Comprobando el equilibrio
     print('Comprobando El equilibrio: Cuando t tiende a oo')
     comprovate = limit(p_sum * exp(coef * t * Pvar) + P_eq,t,oo)
-    print(f'lim = {limp(str(result))} = {round(float(comprovate),4)}')
-    comprovate_2 = limit(p_sum * exp(coef * t * Pvar) + P_eq,t,1)
-    print(f'lim = {limp(str(result))} = {comprovate_2} --> t=1')
+    print(f'lim = {limp(str(result))} = {round(float(comprovate),4)} --> t=oo')
+    comp_equ(comprovate, P_eq)
 
+    print()
+    print(f'Comprobando El equilibrio: Cuando t tiende a {tvar}')
+    comprovate_2 = limit(p_sum * exp(coef * t * Pvar) + P_eq,t,float(tvar))
+    print(f'lim = {limp(str(result))} = {limp(str(comprovate_2))} --> t={tvar}')
+    comp_equ(comprovate_2, P_eq)
     
     return result
-
-
-# ecuacion_caracteristica(-0.3,0.5,200,166.67)
-# print()
-# lim = limit(33.33 * Pvar**(-0.15*t) + 166.67,t,oo)
-# print(float(lim))
 

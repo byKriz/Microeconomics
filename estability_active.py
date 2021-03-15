@@ -30,14 +30,15 @@ def resolviendo_estabilidad():
     print(f'E({ecu_d.sym}) = {est[0]}')
     print(f"E'({ecu_d.sym}) = {est[1]}")
     print(est[2])
-    print()
+    print() 
 
     # Planteamiento de la ecuación de ajuste de equilibrio
     print('Planteamiento de la ecuación de ajuste de equilibrio')
     k = float(input('Ingrese el valor de k: '))
     po = float(input('Ingrese el Precio Inicial: '))
+    tvar = input('Ingrese el Periodo (t): ')
     
-    ajust_eq = ecuacion_caracteristica(est[1],p[0],k,po)
+    ajust_eq = ecuacion_caracteristica(est[1],p[0],k,po,tvar)
 
 
 
