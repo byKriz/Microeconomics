@@ -3,8 +3,6 @@ from sympy import ln, log
 from ecu_grados import arregla_div
 
 
-
-
 def lector(ecu):
     
     # Datos basicos
@@ -27,7 +25,6 @@ def lector(ecu):
         if i in ecu:
             elements_list = sep(ecu,i)
             sym += i
-    print(sym)
     if elements_list != None:
         for indice, element in enumerate(elements_list):
             elements_list[indice] = elements_list[indice].replace(' ','')
@@ -92,7 +89,6 @@ def lector(ecu):
     for i in range(0,2):
         if '^' in elements_list[i]:
                 elements_list[i] = elements_list[i].split('^')
-    print(elements_list)
     
     '''Comprobando la posición de los exponentes'''
     for n in range(0,2):
@@ -119,7 +115,6 @@ def lector(ecu):
                         elem_y = float(y_coef) * (ya ** y_exp)
                     else:
                         elem_y = (ya ** y_exp)
-                        print(elem_y)
                 elif 'yb' in elements_list[n][0]:
                     if y_coef != '':
                         elem_y = float(y_coef) * (yb ** y_exp)
