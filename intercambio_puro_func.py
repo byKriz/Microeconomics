@@ -14,6 +14,8 @@ def lector(ecu):
     y_coef = ''
     elem_x = None
     elem_y = None
+    x_exp = None
+    y_exp = None
     equ_final = None
 
 
@@ -47,9 +49,6 @@ def lector(ecu):
                 else:
                     break
         ind += 1
-
-    print(x_coef)
-    print(y_coef)
     
     # Detectando logaritmo
     for i in elements_list:
@@ -77,27 +76,65 @@ def lector(ecu):
                 elem_y = float(y_coef) * ln(ya)
             else:
                 elem_y = ln(ya)
-        
-    # Detectando exponentes
-    for indice, element in enumerate(elements_list):
-        if '^' in elements_list[indice]:
-                elements_list[indice] = elements_list[indice].split('^')
 
-    print(elements_list)
-
-
+    '''Finalizando el logaritmo'''
     if sym != '':
         if sym == '+':
             equ_final = elem_x + elem_y
+            return equ_final
         elif sym == '-':
             equ_final = elem_x + elem_y
+            return equ_final
+        
+    # Detectando exponentes
+
+    for indice, element in enumerate(elements_list):
+        if '^' in elements_list[indice]:
+                elements_list[indice] = elements_list[indice].split('^')
     
-    print(equ_final)
+    '''Comprobando la posición de los exponentes'''
+    n = 0
+    while n < 2:
+        if n == 0:
+            try:
+                x_exp = arregla_div(elements_list[n][1].replace('(','').replace(')',''))
+                if 'xa' in elements_list[n][0]:
+                    if x_coef != '':
+                        elem_x = float(x_coef) * (xa ** x_exp)
+                    else:
+                        elem_x = (xa ** x_exp)
+                elif 'xb' in elements_list[n][0]:
+                    if x_coef != '':
+                        elem_x = float(x_coef) * (xb ** x_exp)
+                    else:
+                        elem_x = (xb ** x_exp)
+            except:
+                pass
+        if n == 1:
+            try:
+                y_exp = arregla_div(elements_list[n][1].replace('(','').replace(')',''))
+                if 'ya' in elements_list[n][0]:
+                    if y_coef != '':
+                        elem_y = float(y_coef) * (ya ** y_exp)
+                    else:
+                        elem_y = (ya ** y_exp)
+                elif 'yb' in elements_list[n][0]:
+                    if y_coef != '':
+                        elem_y = float(y_coef) * (yb ** y_exp)
+                    else:
+                        elem_y = (yb ** y_exp)
+            except:
+                pass
+        n += 1
+    
+
+    '''Finalizando Exponenciales'''
+    if sym == "*":
+        equ_final = elem_x * elem_y
+        return equ_final
 
 
-
-
-ecu = 'xa^(1/4) * ya^(3/4)'
+ecu = 'ln(xa) - 2ln(ya)'
 lector(ecu)
 
     
