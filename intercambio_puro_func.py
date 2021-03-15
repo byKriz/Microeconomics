@@ -30,8 +30,6 @@ def lector(ecu):
         for indice, element in enumerate(elements_list):
             elements_list[indice] = elements_list[indice].replace(' ','')
 
-    
-    print(elements_list)
 
     # Detectando los coeficientes
     ind = 0
@@ -80,13 +78,13 @@ def lector(ecu):
             else:
                 elem_y = ln(ya)
         
+    # Detectando exponentes
+    for indice, element in enumerate(elements_list):
+        if '^' in elements_list[indice]:
+                elements_list[indice] = elements_list[indice].split('^')
 
+    print(elements_list)
 
-    
-    
-    # for indice, element in enumerate(elements_list):
-    #     if '^' in elements_list[indice]:
-    #             elements_list[indice] = elements_list[indice].split('^')
 
     if sym != '':
         if sym == '+':
@@ -99,7 +97,7 @@ def lector(ecu):
 
 
 
-ecu = 'ln(xa) + 2ln(ya)'
+ecu = 'xa^(1/4) * ya^(3/4)'
 lector(ecu)
 
     
