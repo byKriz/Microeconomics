@@ -27,7 +27,7 @@ def lector(ecu):
         if i in ecu:
             elements_list = sep(ecu,i)
             sym += i
-    
+    print(sym)
     if elements_list != None:
         for indice, element in enumerate(elements_list):
             elements_list[indice] = elements_list[indice].replace(' ','')
@@ -78,23 +78,24 @@ def lector(ecu):
                 elem_y = ln(ya)
 
     '''Finalizando el logaritmo'''
-    if sym != '':
-        if sym == '+':
-            equ_final = elem_x + elem_y
-            return equ_final
-        elif sym == '-':
-            equ_final = elem_x + elem_y
-            return equ_final
+    for p in elements_list:
+        if 'ln' in p or 'log' in p:
+            if sym == '+' or sym == '-':
+                if sym == '+':
+                    equ_final = elem_x + elem_y
+                    return equ_final
+                elif sym == '-':
+                    equ_final = elem_x - elem_y
+                    return equ_final
         
     # Detectando exponentes
-
-    for indice, element in enumerate(elements_list):
-        if '^' in elements_list[indice]:
-                elements_list[indice] = elements_list[indice].split('^')
+    for i in range(0,2):
+        if '^' in elements_list[i]:
+                elements_list[i] = elements_list[i].split('^')
+    print(elements_list)
     
     '''Comprobando la posición de los exponentes'''
-    n = 0
-    while n < 2:
+    for n in range(0,2):
         if n == 0:
             try:
                 x_exp = arregla_div(elements_list[n][1].replace('(','').replace(')',''))
@@ -118,6 +119,7 @@ def lector(ecu):
                         elem_y = float(y_coef) * (ya ** y_exp)
                     else:
                         elem_y = (ya ** y_exp)
+                        print(elem_y)
                 elif 'yb' in elements_list[n][0]:
                     if y_coef != '':
                         elem_y = float(y_coef) * (yb ** y_exp)
@@ -125,16 +127,21 @@ def lector(ecu):
                         elem_y = (yb ** y_exp)
             except:
                 pass
-        n += 1
     
 
     '''Finalizando Exponenciales'''
     if sym == "*":
         equ_final = elem_x * elem_y
         return equ_final
+    elif sym == '-':
+        equ_final = elem_x - elem_y
+        return equ_final
+    elif sym == '+':
+        equ_final = elem_x + elem_y
+        return equ_final
 
 
-ecu = 'ln(xa) - 2ln(ya)'
-lector(ecu)
+ecu = 'xa^(1/4) * ya^(3/4)'
+print(lector(ecu))
 
     
