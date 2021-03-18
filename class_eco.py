@@ -117,3 +117,10 @@ class MaxUtilidad:
     def derivate_l(self):
         return self.z.diff(λ)
 
+class IntercambioPuro:
+
+    def __init__(self,Ua,Ub):
+        self.utilidad_a = Ua
+        self.utilidad_b = Ub
+
+    
