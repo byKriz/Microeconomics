@@ -35,13 +35,13 @@ def lector(ecu):
     while ind < 2:
         if 'x' in elements_list[ind]:
             for j in elements_list[ind]:
-                if j.isnumeric() or j == '.' or j == '-':
+                if j.isnumeric() or j == '.' or j == '-' or j == '/':
                     x_coef += j
                 else:
                     break
         if 'y' in elements_list[ind]:
             for j in elements_list[ind]:
-                if j.isnumeric() or j == '.' or j == '-':
+                if j.isnumeric() or j == '.' or j == '-' or j == '/':
                     y_coef += j
                 else:
                     break
@@ -52,25 +52,25 @@ def lector(ecu):
         
         if 'ln(xa)' in i:
             if x_coef != '':
-                elem_x = float(x_coef) * ln(xa)
+                elem_x = arregla_div(x_coef) * ln(xa)
             else:
                 elem_x = ln(xa)
         
         if 'ln(xb)' in i:
             if x_coef != '':
-                elem_x = float(x_coef) * ln(xb)
+                elem_x = arregla_div(x_coef) * ln(xb)
             else:
                 elem_x = ln(xb)
         
         if 'ln(ya)' in i:
             if y_coef != '':
-                elem_y = float(y_coef) * ln(ya)
+                elem_y = arregla_div(y_coef) * ln(ya)
             else:
                 elem_y = ln(ya)
         
         if 'ln(ya)' in i:
             if y_coef != '':
-                elem_y = float(y_coef) * ln(ya)
+                elem_y = arregla_div(y_coef) * ln(ya)
             else:
                 elem_y = ln(ya)
 
@@ -97,12 +97,12 @@ def lector(ecu):
                 x_exp = arregla_div(elements_list[n][1].replace('(','').replace(')',''))
                 if 'xa' in elements_list[n][0]:
                     if x_coef != '':
-                        elem_x = float(x_coef) * (xa ** x_exp)
+                        elem_x = arregla_div(x_coef) * (xa ** x_exp)
                     else:
                         elem_x = (xa ** x_exp)
                 elif 'xb' in elements_list[n][0]:
                     if x_coef != '':
-                        elem_x = float(x_coef) * (xb ** x_exp)
+                        elem_x = arregla_div(x_coef) * (xb ** x_exp)
                     else:
                         elem_x = (xb ** x_exp)
             except:
@@ -112,12 +112,12 @@ def lector(ecu):
                 y_exp = arregla_div(elements_list[n][1].replace('(','').replace(')',''))
                 if 'ya' in elements_list[n][0]:
                     if y_coef != '':
-                        elem_y = float(y_coef) * (ya ** y_exp)
+                        elem_y = arregla_div(y_coef) * (ya ** y_exp)
                     else:
                         elem_y = (ya ** y_exp)
                 elif 'yb' in elements_list[n][0]:
                     if y_coef != '':
-                        elem_y = float(y_coef) * (yb ** y_exp)
+                        elem_y = arregla_div(y_coef) * (yb ** y_exp)
                     else:
                         elem_y = (yb ** y_exp)
             except:
