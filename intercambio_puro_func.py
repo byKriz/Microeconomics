@@ -39,7 +39,7 @@ def lector(ecu):
                     x_coef += j
                 else:
                     break
-        if 'y' in elements_list[ind]:
+        elif 'y' in elements_list[ind]:
             for j in elements_list[ind]:
                 if j.isnumeric() or j == '.' or j == '-' or j == '/':
                     y_coef += j
@@ -100,14 +100,14 @@ def lector(ecu):
                         elem_x = arregla_div(x_coef) * (xa ** x_exp)
                     else:
                         elem_x = (xa ** x_exp)
-                elif 'xb' in elements_list[n][0]:
+                if 'xb' in elements_list[n][0]:
                     if x_coef != '':
                         elem_x = arregla_div(x_coef) * (xb ** x_exp)
                     else:
                         elem_x = (xb ** x_exp)
             except:
                 pass
-        if n == 1:
+        elif n == 1:
             try:
                 y_exp = arregla_div(elements_list[n][1].replace('(','').replace(')',''))
                 if 'ya' in elements_list[n][0]:
@@ -115,7 +115,7 @@ def lector(ecu):
                         elem_y = arregla_div(y_coef) * (ya ** y_exp)
                     else:
                         elem_y = (ya ** y_exp)
-                elif 'yb' in elements_list[n][0]:
+                if 'yb' in elements_list[n][0]:
                     if y_coef != '':
                         elem_y = arregla_div(y_coef) * (yb ** y_exp)
                     else:
@@ -136,7 +136,7 @@ def lector(ecu):
         return equ_final
 
 
-ecu = '2ln(xb) + ln(yb)'
-print(lector(ecu))
+ecu = 'xb^(3/4) * yb^(1/4)'
+# print(lector(ecu))
 
     
