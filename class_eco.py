@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from constants import dic_sym, λ, x, y, px, py, xa, xb, ya, yb
 
+
 def _arregla_div(valor):
     if '/' in str(valor):
         valor = valor.split('/')
@@ -10,22 +11,22 @@ def _arregla_div(valor):
 
 
 class EcuacionLineal:
-    
-    def __init__(self,var,inde=0,sym='x'):
-            self.var = _arregla_div(var)
-            self.inde = _arregla_div(inde)
-            self.sym = dic_sym[sym]
-            self.func = self.var * self.sym + self.inde
+
+    def __init__(self, var, inde=0, sym='x'):
+        self.var = _arregla_div(var)
+        self.inde = _arregla_div(inde)
+        self.sym = dic_sym[sym]
+        self.func = self.var * self.sym + self.inde
 
     def derivate(self):
         y = self.func
         deri = y.diff(self.sym)
         return deri
-    
+
     def clean_deri(self):
         y = self.func
         deri = y.diff(self.sym)
-        return str(deri).replace('**','^').replace('*','')
+        return str(deri).replace('**', '^').replace('*', '')
 
     def view(self):
         if self.inde < 0:
@@ -34,31 +35,32 @@ class EcuacionLineal:
             return f'{self.var}{str(self.sym)}'
         return f'{self.var}{str(self.sym)} + {self.inde}'
 
-    def showg(self,rgb='red'):
-        fx = lambda x : (self.var * x) + self.inde
-        x = np.linspace(0,50,100)
+    def showg(self, rgb='red'):
+        def fx(x): return (self.var * x) + self.inde
+        x = np.linspace(0, 50, 100)
         graphic = fx(x)
-        plt.plot(x,graphic,color=f'{rgb}')
+        plt.plot(x, graphic, color=f'{rgb}')
         plt.show()
 
     def element_g(self):
-        fx = lambda x : (self.var * x) + self.inde
-        x = np.linspace(0,50,100)
+        def fx(x): return (self.var * x) + self.inde
+        x = np.linspace(0, 50, 100)
         graphic = fx(x)
         return x, graphic
 
 
 class Ecuacion2doGrado(EcuacionLineal):
-    def __init__(self,var2,var=0,inde=0,sym='x'):
+    def __init__(self, var2, var=0, inde=0, sym='x'):
         self.var2 = _arregla_div(var2)
         self.var = _arregla_div(var)
         self.inde = _arregla_div(inde)
         self.sym = dic_sym[sym]
-        self.func = (self.var2 * self.sym ** 2) + (self.var * self.sym) + self.inde
+        self.func = (self.var2 * self.sym ** 2) + \
+            (self.var * self.sym) + self.inde
 
     def derivate_2(self):
         y = self.func
-        deri = y.diff(self.sym,2)
+        deri = y.diff(self.sym, 2)
         return deri
 
     def view(self):
@@ -66,7 +68,7 @@ class Ecuacion2doGrado(EcuacionLineal):
         sig2 = None
         var = self.var
         inde = self.inde
-        
+
         # Comprobando el signo
         if var < 0:
             sig1 = '-'
@@ -88,38 +90,40 @@ class Ecuacion2doGrado(EcuacionLineal):
             return f'{self.var2}{str(self.sym)}^2'
         return f'{self.var2}{str(self.sym)}^2 {sig1} {var}{str(self.sym)} {sig2} {inde}'
 
-    def showg(self,rgb='red'):
-        fx = lambda x : (self.var2 * x**2) + (self.var * x) + self.inde
-        x = np.linspace(0,50,100)
+    def showg(self, rgb='red'):
+        def fx(x): return (self.var2 * x**2) + (self.var * x) + self.inde
+        x = np.linspace(0, 50, 100)
         graphic = fx(x)
-        plt.plot(x,graphic,color=f'{rgb}')
+        plt.plot(x, graphic, color=f'{rgb}')
         plt.show()
-    
+
     def element_g(self):
-        fx = lambda x : (self.var2 * x**2) + (self.var * x) + self.inde
-        x = np.linspace(0,50,100)
+        def fx(x): return (self.var2 * x**2) + (self.var * x) + self.inde
+        x = np.linspace(0, 50, 100)
         graphic = fx(x)
         return x, graphic
-    
+
+
 class MaxUtilidad:
-    
-    def __init__(self,fun_utilidad,fun_restric):
+
+    def __init__(self, fun_utilidad, fun_restric):
         self.fun_utilidad = fun_utilidad
         self.fun_restric = fun_restric
         self.z = fun_utilidad - λ*(fun_restric)
-    
+
     def derivate_x(self):
         return self.z.diff(x)
-    
+
     def derivate_y(self):
         return self.z.diff(y)
 
     def derivate_l(self):
         return self.z.diff(λ)
 
+
 class IntercambioPuro:
 
-    def __init__(self,Ua,Ub,dot_xa,dot_xb,dot_ya,dot_yb):
+    def __init__(self, Ua, Ub, dot_xa, dot_xb, dot_ya, dot_yb):
         self.utilidad_a = Ua
         self.utilidad_b = Ub
         # self.dotacion_xa = dot_xa
@@ -135,7 +139,7 @@ class IntercambioPuro:
 
     def deriv_z1_xa(self):
         return self.fun_z1.diff(xa)
-    
+
     def deriv_z1_ya(self):
         return self.fun_z1.diff(ya)
 
@@ -145,4 +149,3 @@ class IntercambioPuro:
     def despeje_z1_xa(self):
         a = self.deriv_z1_xa()
         return a
-
