@@ -68,11 +68,11 @@ def lector(ecu):
             else:
                 elem_y = ln(ya)
         
-        if 'ln(ya)' in i:
+        if 'ln(yb)' in i:
             if y_coef != '':
-                elem_y = arregla_div(y_coef) * ln(ya)
+                elem_y = arregla_div(y_coef) * ln(yb)
             else:
-                elem_y = ln(ya)
+                elem_y = ln(yb)
 
     '''Finalizando el logaritmo'''
     for p in elements_list:
@@ -136,7 +136,7 @@ def lector(ecu):
         return equ_final
 
 
-ecu = 'xa^(1/4) * ya^(3/4)'
+ecu = '2ln(xb) + ln(yb)'
 print(lector(ecu))
 
     

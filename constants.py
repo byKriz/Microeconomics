@@ -31,4 +31,6 @@ xa = Symbol('xa')
 ya = Symbol('ya')
 xb = Symbol('xb')
 yb = Symbol('yb')
+px = Symbol('Px')
+py = Symbol('Py')
 

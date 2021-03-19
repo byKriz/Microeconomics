@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from constants import dic_sym, λ, x, y
+from constants import dic_sym, λ, x, y, px, py, xa, xb, ya, yb
 
 def _arregla_div(valor):
     if '/' in str(valor):
@@ -119,8 +119,30 @@ class MaxUtilidad:
 
 class IntercambioPuro:
 
-    def __init__(self,Ua,Ub):
+    def __init__(self,Ua,Ub,dot_xa,dot_xb,dot_ya,dot_yb):
         self.utilidad_a = Ua
         self.utilidad_b = Ub
+        # self.dotacion_xa = dot_xa
+        # self.dotacion_xb = dot_xb
+        # self.dotacion_ya = dot_ya
+        # self.dotacion_yb = dot_yb
+        self.dot_ini_x = dot_xa + dot_xb
+        self.dot_ini_y = dot_ya + dot_yb
+        self.restric_a = px*xa + py*ya - dot_xa*px - dot_ya*py
+        self.restric_b = px*xb + py*yb - dot_xb*px - dot_yb*py
+        self.fun_z1 = Ua - λ*(self.restric_a)
+        self.fun_z2 = Ub - λ*(self.restric_b)
 
+    def deriv_z1_xa(self):
+        return self.fun_z1.diff(xa)
     
+    def deriv_z1_ya(self):
+        return self.fun_z1.diff(ya)
+
+    def deriv_z1_λ(self):
+        return self.fun_z1.diff(λ)
+
+    def despeje_z1_xa(self):
+        a = self.deriv_z1_xa()
+        return a
+
