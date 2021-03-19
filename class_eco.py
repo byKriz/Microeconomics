@@ -147,5 +147,44 @@ class IntercambioPuro:
         return self.fun_z1.diff(λ)
 
     def despeje_z1_xa(self):
-        a = self.deriv_z1_xa()
-        return a
+        restric = - λ*(self.restric_a)
+        derv_ua = self.utilidad_a.diff(xa)
+        derv_lan = restric.diff(xa) * -1
+        elem_list = [derv_ua, derv_lan]
+        return elem_list
+    
+    def despeje_z1_ya(self):
+        restric = - λ*(self.restric_a)
+        derv_ua = self.utilidad_a.diff(ya)
+        derv_lan = restric.diff(ya) * -1
+        elem_list = [derv_ua, derv_lan]
+        return elem_list
+
+    def tms_z1(self):
+        elem_xa = self.despeje_z1_xa()
+        elem_ya= self.despeje_z1_ya()
+        izq_eq = elem_xa[0] / elem_ya[0]
+        der_eq = elem_xa[1] / elem_ya[1]
+        print(f'TMS = {izq_eq} = {der_eq}'.replace('**','^').replace('*',''))
+    
+    def __tms_z1_elem(self):
+        elem_xa = self.despeje_z1_xa()
+        elem_ya= self.despeje_z1_ya()
+        izq_eq = elem_xa[0] / elem_ya[0]
+        der_eq = elem_xa[1] / elem_ya[1]
+        return izq_eq,der_eq
+    
+    def ya_opt(self):
+        elements = self.__tms_z1_elem()
+        conver = (elements[0] / ya) ** (-1)
+        despeje = elements[1] * conver
+        print(f'Ya = {despeje}'.replace('**','^').replace('*','').replace('xa','Xa'))
+
+    
+    
+
+
+
+
+    
+
