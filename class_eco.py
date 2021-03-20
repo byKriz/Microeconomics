@@ -146,6 +146,8 @@ class IntercambioPuro:
     def deriv_z1_λ(self):
         return self.fun_z1.diff(λ)
 
+
+    # Despejes de las funciones λ
     def despeje_z1_xa(self):
         restric = - λ*(self.restric_a)
         derv_ua = self.utilidad_a.diff(xa)
@@ -153,7 +155,6 @@ class IntercambioPuro:
         elem_list = [derv_ua, derv_lan]
         return elem_list
     
-    # Despejes de las funciones λ
     def despeje_z1_ya(self):
         restric = - λ*(self.restric_a)
         derv_ua = self.utilidad_a.diff(ya)
@@ -181,7 +182,8 @@ class IntercambioPuro:
         elem_ya = self.despeje_z1_ya()
         izq_eq = elem_xa[0] / elem_ya[0]
         der_eq = elem_xa[1] / elem_ya[1]
-        print(f'TMS = {izq_eq} = {der_eq}'.replace('**','^').replace('*',''))
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('^1.0','')
+        print(f'TMS1 = {limp(izq_eq)} = {limp(der_eq)}')
     
     def __tms_z1_elem(self):
         elem_xa = self.despeje_z1_xa()
@@ -195,11 +197,12 @@ class IntercambioPuro:
         elem_ya = self.despeje_z2_yb()
         izq_eq = elem_xa[0] / elem_ya[0]
         der_eq = elem_xa[1] / elem_ya[1]
-        print(f'TMS = {izq_eq} = {der_eq}'.replace('**','^').replace('*',''))
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('^1.0','')
+        print(f'TMS2 = {limp(izq_eq)} = {limp(der_eq)}')
 
     def __tms_z2_elem(self):
-        elem_xb = self.despeje_z1_xa()
-        elem_yb = self.despeje_z1_ya()
+        elem_xb = self.despeje_z2_xb()
+        elem_yb = self.despeje_z2_yb()
         izq_eq = elem_xb[0] / elem_yb[0]
         der_eq = elem_xb[1] / elem_yb[1]
         return izq_eq,der_eq
@@ -209,9 +212,28 @@ class IntercambioPuro:
         elements = self.__tms_z1_elem()
         conver = (elements[0] / ya) ** (-1)
         despeje = elements[1] * conver
-        print(f'Ya = {despeje}'.replace('**','^').replace('*','').replace('xa','Xa'))
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xa','Xa')
+        print(f'Ya = {limp(despeje)}')
 
-    
+    def yb_opt(self):
+        elements = self.__tms_z2_elem()
+        conver = (elements[0] / yb) ** (-1)
+        despeje = elements[1] * conver
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xb','Xb')
+        print(f'Yb = {limp(despeje)}')
+
+    def xa_opt(self):
+        elements = self.__tms_z1_elem()
+        conver = (elements[0] * ((xa*py) / px))
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('ya','Ya')
+        print(f'Xa = {limp(conver)}')
+
+    def xb_opt(self):
+        elements = self.__tms_z2_elem()
+        conver = (elements[0] * ((xb*py) / px))
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('yb','Yb')
+        print(f'Xb = {limp(conver)}')
+
     
 
 
