@@ -153,6 +153,7 @@ class IntercambioPuro:
         elem_list = [derv_ua, derv_lan]
         return elem_list
     
+    # Despejes de las funciones λ
     def despeje_z1_ya(self):
         restric = - λ*(self.restric_a)
         derv_ua = self.utilidad_a.diff(ya)
@@ -160,20 +161,50 @@ class IntercambioPuro:
         elem_list = [derv_ua, derv_lan]
         return elem_list
 
+    def despeje_z2_xb(self):
+        restric = - λ*(self.restric_b)
+        derv_ub = self.utilidad_b.diff(xb)
+        derv_lan = restric.diff(xb) * -1
+        elem_list = [derv_ub, derv_lan]
+        return elem_list
+    
+    def despeje_z2_yb(self):
+        restric = - λ*(self.restric_b)
+        derv_ub = self.utilidad_b.diff(yb)
+        derv_lan = restric.diff(yb) * -1
+        elem_list = [derv_ub, derv_lan]
+        return elem_list
+
+    # Tasas Marginales de Sustitución
     def tms_z1(self):
         elem_xa = self.despeje_z1_xa()
-        elem_ya= self.despeje_z1_ya()
+        elem_ya = self.despeje_z1_ya()
         izq_eq = elem_xa[0] / elem_ya[0]
         der_eq = elem_xa[1] / elem_ya[1]
         print(f'TMS = {izq_eq} = {der_eq}'.replace('**','^').replace('*',''))
     
     def __tms_z1_elem(self):
         elem_xa = self.despeje_z1_xa()
-        elem_ya= self.despeje_z1_ya()
+        elem_ya = self.despeje_z1_ya()
         izq_eq = elem_xa[0] / elem_ya[0]
         der_eq = elem_xa[1] / elem_ya[1]
         return izq_eq,der_eq
+
+    def tms_z2(self):
+        elem_xa = self.despeje_z2_xb()
+        elem_ya = self.despeje_z2_yb()
+        izq_eq = elem_xa[0] / elem_ya[0]
+        der_eq = elem_xa[1] / elem_ya[1]
+        print(f'TMS = {izq_eq} = {der_eq}'.replace('**','^').replace('*',''))
+
+    def __tms_z2_elem(self):
+        elem_xb = self.despeje_z1_xa()
+        elem_yb = self.despeje_z1_ya()
+        izq_eq = elem_xb[0] / elem_yb[0]
+        der_eq = elem_xb[1] / elem_yb[1]
+        return izq_eq,der_eq
     
+    # Ecuaciones Óptimas
     def ya_opt(self):
         elements = self.__tms_z1_elem()
         conver = (elements[0] / ya) ** (-1)
