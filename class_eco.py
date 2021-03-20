@@ -126,10 +126,10 @@ class IntercambioPuro:
     def __init__(self, Ua, Ub, dot_xa, dot_xb, dot_ya, dot_yb):
         self.utilidad_a = Ua
         self.utilidad_b = Ub
-        # self.dotacion_xa = dot_xa
-        # self.dotacion_xb = dot_xb
-        # self.dotacion_ya = dot_ya
-        # self.dotacion_yb = dot_yb
+        self.dotacion_xa = dot_xa
+        self.dotacion_xb = dot_xb
+        self.dotacion_ya = dot_ya
+        self.dotacion_yb = dot_yb
         self.dot_ini_x = dot_xa + dot_xb
         self.dot_ini_y = dot_ya + dot_yb
         self.restric_a = px*xa + py*ya - dot_xa*px - dot_ya*py
