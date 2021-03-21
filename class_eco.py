@@ -380,6 +380,10 @@ class IntercambioPuro:
         wal = (px * self.__exce_x()) + (py * self.__exce_y())
         print(wal)
 
+    # Curva de contrato
+    def durva_c(self):
+        return 
+        pass
 
 
 
