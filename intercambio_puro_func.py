@@ -1,6 +1,8 @@
-from constants import xa,xb,ya,yb
+from constants import xa,xb,ya,yb, λ, c
 from sympy import ln, log
 from ecu_grados import arregla_div
+from class_eco import IntercambioPuro
+
 
 
 def lector(ecu):
@@ -26,7 +28,7 @@ def lector(ecu):
             elements_list = sep(ecu,i)
             sym += i
     if elements_list != None:
-        for indice, element in enumerate(elements_list):
+        for indice in range(0,len(elements_list)-1):
             elements_list[indice] = elements_list[indice].replace(' ','')
 
 
@@ -136,7 +138,37 @@ def lector(ecu):
         return equ_final
 
 
-ecu = 'xb^(3/4) * yb^(1/4)'
-# print(lector(ecu))
+def active():
+    ua = lector('ln(xa) + 2ln(ya)')
+    ub = lector('2ln(xb) + ln(yb)')
+    xa_,xb_,ya_,yb_ = 3,4,4,3
 
-    
+    puro = IntercambioPuro(ua,ub,xa_,xb_,ya_,yb_)
+
+    print('Maximización de Ua')
+
+    print(f'Z1 = {puro.fun_z1}')
+    puro.tms_z1()
+    puro.ya_opt()
+    puro.xa_opt()
+    print('Funciones de Demanda')
+    puro.fun_d_xa()
+    puro.fun_d_ya()
+
+
+    print()
+    print('Maximización de Ub')
+    print(f'Z2 = {puro.fun_z2}')
+    puro.tms_z2()
+    puro.yb_opt()
+    puro.xb_opt()
+    print('Funciones de Demanda')
+    puro.fun_d_xb()
+    puro.fun_d_yb()
+
+    print()
+    print('Funciones de Excedente de Consumidor')
+    puro.exce_x()
+    puro.exce_y()
+
+active()
