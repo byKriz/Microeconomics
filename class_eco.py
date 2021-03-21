@@ -126,10 +126,10 @@ class IntercambioPuro:
     def __init__(self, Ua, Ub, dot_xa, dot_xb, dot_ya, dot_yb):
         self.utilidad_a = Ua
         self.utilidad_b = Ub
-        self.dotacion_xa = dot_xa
-        self.dotacion_xb = dot_xb
-        self.dotacion_ya = dot_ya
-        self.dotacion_yb = dot_yb
+        self.dot_xa = dot_xa
+        self.dot_xb = dot_xb
+        self.dot_ya = dot_ya
+        self.dot_yb = dot_yb
         self.dot_ini_x = dot_xa + dot_xb
         self.dot_ini_y = dot_ya + dot_yb
         self.restric_a = px*xa + py*ya - dot_xa*px - dot_ya*py
@@ -137,6 +137,7 @@ class IntercambioPuro:
         self.fun_z1 = Ua - λ*(self.restric_a)
         self.fun_z2 = Ub - λ*(self.restric_b)
 
+    # Derivadas
     def deriv_z1_xa(self):
         return self.fun_z1.diff(xa)
 
@@ -145,6 +146,15 @@ class IntercambioPuro:
 
     def deriv_z1_λ(self):
         return self.fun_z1.diff(λ)
+
+    def deriv_z2_xb(self):
+        return self.fun_z2.diff(xb)
+
+    def deriv_z2_yb(self):
+        return self.fun_z2.diff(yb)
+
+    def deriv_z2_λ(self):
+        return self.fun_z2.diff(λ)
 
 
     # Despejes de las funciones λ
@@ -233,6 +243,148 @@ class IntercambioPuro:
         conver = (elements[0] * ((xb*py) / px))
         limp = lambda x: str(x).replace('**','^').replace('*','').replace('yb','Yb')
         print(f'Xb = {limp(conver)}')
+
+    # Ecuaciones Óptimas Privadas
+    def __ya_opt(self):
+        elements = self.__tms_z1_elem()
+        conver = (elements[0] / ya) ** (-1)
+        despeje = elements[1] * conver
+        return despeje
+
+    def __yb_opt(self):
+        elements = self.__tms_z2_elem()
+        conver = (elements[0] / yb) ** (-1)
+        despeje = elements[1] * conver
+        return despeje
+    
+    def __xa_opt(self):
+        elements = self.__tms_z1_elem()
+        conver = (elements[0] * ((xa*py) / px))
+        return conver
+
+    def __xb_opt(self):
+        elements = self.__tms_z2_elem()
+        conver = (elements[0] * ((xb*py) / px))
+        return conver
+    
+    # Funciones de demanda
+    def fun_d_xa(self):
+        if '**(' in str(self.__ya_opt()):
+            pass
+        else:
+            ya_op = self.__ya_opt()
+            izq = (px*xa) + (py*ya_op)
+            der = (self.dot_xa * px) + (self.dot_ya * py)
+            izq = izq / xa
+            der = der / izq
+            print(f'Xa = {der}')
+        
+    def fun_d_ya(self):
+        if '**(' in str(self.__xa_opt()):
+            pass
+        else:
+            xa_op = self.__xa_opt()
+            izq = (px*xa_op) + (py*ya)
+            der = (self.dot_xa * px) + (self.dot_ya * py)
+            izq = izq / ya
+            der = der / izq
+            print(f'Ya = {der}')
+    
+    def fun_d_xb(self):
+        if '**(' in str(self.__yb_opt()):
+            pass
+        else:
+            yb_op = self.__yb_opt()
+            izq = (px*xb) + (py*yb_op)
+            der = (self.dot_xb * px) + (self.dot_yb * py)
+            izq = izq / xb
+            der = der / izq
+            print(f'Xb = {der}')
+
+    def fun_d_yb(self):
+        if '**(' in str(self.__xb_opt()):
+            pass
+        else:
+            xb_op = self.__xb_opt()
+            izq = (px*xb_op) + (py*yb)
+            der = (self.dot_xb * px) + (self.dot_yb * py)
+            izq = izq / yb
+            der = der / izq
+            print(f'Yb = {der}')
+
+    # Funciones de demanda privadas
+    def __fun_d_xa(self):
+        if '**(' in str(self.__ya_opt()):
+            pass
+        else:
+            ya_op = self.__ya_opt()
+            izq = (px*xa) + (py*ya_op)
+            der = (self.dot_xa * px) + (self.dot_ya * py)
+            izq = izq / xa
+            der = der / izq
+            return der
+        
+    def __fun_d_ya(self):
+        if '**(' in str(self.__xa_opt()):
+            pass
+        else:
+            xa_op = self.__xa_opt()
+            izq = (px*xa_op) + (py*ya)
+            der = (self.dot_xa * px) + (self.dot_ya * py)
+            izq = izq / ya
+            der = der / izq
+            return der
+    
+    def __fun_d_xb(self):
+        if '**(' in str(self.__yb_opt()):
+            pass
+        else:
+            yb_op = self.__yb_opt()
+            izq = (px*xb) + (py*yb_op)
+            der = (self.dot_xb * px) + (self.dot_yb * py)
+            izq = izq / xb
+            der = der / izq
+            return der
+
+    def __fun_d_yb(self):
+        if '**(' in str(self.__xb_opt()):
+            pass
+        else:
+            xb_op = self.__xb_opt()
+            izq = (px*xb_op) + (py*yb)
+            der = (self.dot_xb * px) + (self.dot_yb * py)
+            izq = izq / yb
+            der = der / izq
+            return der
+
+    # Funciones de excedente de demanda
+    def exce_x(self):
+        ed = (self.__fun_d_xa() + self.__fun_d_xb()) - (self.dot_ini_x)
+        print(ed)
+
+    def exce_y(self):
+        ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
+        print(ed)
+    
+    # Funciones de excedente de demanda Privadas
+    def __exce_x(self):
+        ed = (self.__fun_d_xa() + self.__fun_d_xb()) - (self.dot_ini_x)
+        return ed
+
+    def __exce_y(self):
+        ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
+        return ed
+
+    # Ley de walras
+    def ley_wal(self):
+        wal = (px * self.__exce_x()) + (py * self.__exce_y())
+        print(wal)
+
+
+
+
+
+
 
     
 
