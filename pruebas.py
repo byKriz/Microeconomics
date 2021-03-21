@@ -15,5 +15,28 @@ def limp_exc_x(exc):
         lim = str(exc).replace('*Px','')
         return lim
 
-puro.exce_x()
+
+print('Maximización de Ua')
+print(f'Z1 = {puro.fun_z1}')
+puro.tms_z1()
+puro.ya_opt()
+puro.xa_opt()
+print('Funciones de Demanda')
+puro.fun_d_xa()
+puro.fun_d_ya()
+
+
+print()
+print('Maximización de Ub')
+print(f'Z2 = {puro.fun_z2}')
+puro.tms_z2()
+puro.yb_opt()
+puro.xb_opt()
+print('Funciones de Demanda')
 puro.fun_d_xb()
+puro.fun_d_yb()
+
+print()
+print('Funciones de Excedente de Consumidor')
+puro.exce_x()
+puro.exce_y()
