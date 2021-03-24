@@ -1,6 +1,6 @@
 from class_eco import IntercambioPuro
 from intercambio_puro_func import lector
-from constants import λ, c
+from constants import λ, c, px, py
 
 ua = lector('ln(xa) + 2ln(ya)')
 ub = lector('2ln(xb) + ln(yb)')
@@ -15,28 +15,11 @@ def limp_exc_x(exc):
         lim = str(exc).replace('*Px','')
         return lim
 
-
-print('Maximización de Ua')
-print(f'Z1 = {puro.fun_z1}')
-puro.tms_z1()
-puro.ya_opt()
-puro.xa_opt()
-print('Funciones de Demanda')
-puro.fun_d_xa()
-puro.fun_d_ya()
+j = -7 + (3*px + 4*py)/(2*px) + 0.666666666666667*(4*px + 3*py)/px
+print(j)
+py = 1
+j = -7 + (3*px + 4*py)/(2*px) + 0.666666666666667*(4*px + 3*py)/px
+print(j)
+px = 1
 
 
-print()
-print('Maximización de Ub')
-print(f'Z2 = {puro.fun_z2}')
-puro.tms_z2()
-puro.yb_opt()
-puro.xb_opt()
-print('Funciones de Demanda')
-puro.fun_d_xb()
-puro.fun_d_yb()
-
-print()
-print('Funciones de Excedente de Consumidor')
-puro.exce_x()
-puro.exce_y()
