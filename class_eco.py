@@ -130,12 +130,19 @@ class IntercambioPuro:
         self.dot_xb = dot_xb
         self.dot_ya = dot_ya
         self.dot_yb = dot_yb
+        # self.xa_exp = xa_exp
+        # self.ya_exp = ya_exp
+        # self.xb_exp = xb_exp
+        # self.yb_exp = yb_exp
         self.dot_ini_x = dot_xa + dot_xb
         self.dot_ini_y = dot_ya + dot_yb
         self.restric_a = px*xa + py*ya - dot_xa*px - dot_ya*py
         self.restric_b = px*xb + py*yb - dot_xb*px - dot_yb*py
         self.fun_z1 = Ua - λ*(self.restric_a)
         self.fun_z2 = Ub - λ*(self.restric_b)
+
+    def __str__(self):
+        return f'Z1 = {self.fun_z1}\nZ2 = {self.fun_z2}'
 
     # Derivadas
     def deriv_z1_xa(self):
@@ -159,6 +166,7 @@ class IntercambioPuro:
 
     # Despejes de las funciones λ
     def despeje_z1_xa(self):
+
         restric = - λ*(self.restric_a)
         derv_ua = self.utilidad_a.diff(xa)
         derv_lan = restric.diff(xa) * -1
@@ -222,26 +230,26 @@ class IntercambioPuro:
         elements = self.__tms_z1_elem()
         conver = (elements[0] / ya) ** (-1)
         despeje = elements[1] * conver
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xa','Xa')
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xa','Xa').replace('^1.0','').replace('0.333333333333333','1/3*')
         print(f'Ya = {limp(despeje)}')
 
     def yb_opt(self):
         elements = self.__tms_z2_elem()
         conver = (elements[0] / yb) ** (-1)
         despeje = elements[1] * conver
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xb','Xb')
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xb','Xb').replace('^1.0','').replace('0.333333333333333','1/3*')
         print(f'Yb = {limp(despeje)}')
 
     def xa_opt(self):
         elements = self.__tms_z1_elem()
         conver = (elements[0] * ((xa*py) / px))
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('ya','Ya')
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('ya','Ya').replace('^1.0','').replace('0.333333333333333','1/3')
         print(f'Xa = {limp(conver)}')
 
     def xb_opt(self):
         elements = self.__tms_z2_elem()
         conver = (elements[0] * ((xb*py) / px))
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('yb','Yb')
+        limp = lambda x: str(x).replace('**','^').replace('*','').replace('yb','Yb').replace('^1.0','').replace('0.333333333333333','1/3')
         print(f'Xb = {limp(conver)}')
 
     # Ecuaciones Óptimas Privadas
@@ -277,7 +285,8 @@ class IntercambioPuro:
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / xa
             der = der / izq
-            print(f'Xa = {der}')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            print(f'Xa = {limp(str(der))}')
         
     def fun_d_ya(self):
         if '**(' in str(self.__xa_opt()):
@@ -288,7 +297,8 @@ class IntercambioPuro:
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / ya
             der = der / izq
-            print(f'Ya = {der}')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            print(f'Ya = {limp(str(der))}')
     
     def fun_d_xb(self):
         if '**(' in str(self.__yb_opt()):
@@ -299,7 +309,8 @@ class IntercambioPuro:
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / xb
             der = der / izq
-            print(f'Xb = {der}')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            print(f'Xb = {limp(str(der))}')
 
     def fun_d_yb(self):
         if '**(' in str(self.__xb_opt()):
@@ -310,7 +321,8 @@ class IntercambioPuro:
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / yb
             der = der / izq
-            print(f'Yb = {der}')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            print(f'Yb = {limp(str(der))}')
 
     # Funciones de demanda privadas
     def __fun_d_xa(self):
@@ -360,11 +372,13 @@ class IntercambioPuro:
     # Funciones de excedente de demanda
     def exce_x(self):
         ed = (self.__fun_d_xa() + self.__fun_d_xb()) - (self.dot_ini_x)
-        print(ed)
+        limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+        print(f'X = {limp(str(ed))}')
 
     def exce_y(self):
         ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
-        print(ed)
+        limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+        print(f'Y = {limp(str(ed))}')
     
     # Funciones de excedente de demanda Privadas
     def __exce_x(self):
