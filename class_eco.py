@@ -373,14 +373,14 @@ class IntercambioPuro:
     def exce_x(self):
         ed = (self.__fun_d_xa() + self.__fun_d_xb()) - (self.dot_ini_x)
         limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
-        print(f'X = {limp(str(ed))}')
+        print(f'X = {limp(str(ed))} = 0')
 
 
     def exce_y(self):
         ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
         limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
-        print(f'Y = {limp(str(ed))}')
-        
+        print(f'Y = {limp(str(ed))} = 0')
+
     
     # Funciones de excedente de demanda Privadas
     def __exce_x(self):
@@ -390,6 +390,43 @@ class IntercambioPuro:
     def __exce_y(self):
         ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
         return ed
+
+    # Solución del sistemas
+    def sistem_solution(self):
+        px_ = px
+        py_ = py
+        x_valor = str(self.__exce_x())
+
+        def lista_n():
+            n_list = []
+            n = ''
+            comp = '0123456789.'
+
+            for i, c in enumerate(x_valor):
+                if c.isnumeric() or c in '.-':
+                    n += c
+                    if x_valor[i+1] not in comp:
+                        n_list.append(float(n))
+                        n = ''
+                else:
+                    pass
+            return n_list
+
+        if 'log' in str(self.utilidad_a):
+            n = lista_n()
+            # X = -7 + (3*Px + 4*Py)/(2*Px) + 0.666666666666667*(4*Px + 3*Py)/Px
+            ''' Hay que descomponer la función '''
+            fun = n[0] + (n[1]*px_ + n[2]*py_)/(n[3]*px_) + n[4]*(n[5]*px_ + n[6]*py_)/px_
+            py_ = 1
+            fun = n[0] + (n[1]*px_ + n[2]*py_)/(n[3]*px_) + n[4]*(n[5]*px_ + n[6]*py_)/px_
+
+
+        elif '**' in str(self.utilidad_a):
+            n = lista_n()
+            pass
+        
+        return fun
+
 
     # Ley de walras
     def ley_wal(self):

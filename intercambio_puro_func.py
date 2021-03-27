@@ -156,13 +156,14 @@ def active():
     puro.fun_d_xa()
     puro.fun_d_ya()
 
-
     print()
     print('Maximización de Ub')
     print(f'Z2 = {puro.fun_z2}')
     puro.tms_z2()
     puro.yb_opt()
     puro.xb_opt()
+
+    print()
     print('Funciones de Demanda')
     puro.fun_d_xb()
     puro.fun_d_yb()
@@ -171,5 +172,7 @@ def active():
     print('Funciones de Excedente de Consumidor')
     puro.exce_x()
     puro.exce_y()
+
+    print(puro.sistem_solution())
 
 active()
