@@ -412,6 +412,25 @@ class IntercambioPuro:
                     pass
             return n_list
 
+        def seletion():
+            while True:
+                seletion = input('P numerario: [1]Px o [2]Py')
+                if seletion == '1':
+                    while True:
+                        n = input('Px = ')
+                        if n.isnumeric():
+                            return seletion, float(n)
+                        else:
+                            print('Ingrse un n{umero')
+                elif seletion == '2':
+                    while True:
+                        n = input('Py = ')
+                        if n.isnumeric():
+                            return seletion, float(n)
+                        else:
+                            print('Ingrse un n{umero')
+
+
         if 'log' in str(self.utilidad_a):
             n = lista_n()
             # X = -7 + (3*Px + 4*Py)/(2*Px) + 0.666666666666667*(4*Px + 3*Py)/Px
