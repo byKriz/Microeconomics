@@ -421,14 +421,14 @@ class IntercambioPuro:
                         if n.isnumeric():
                             return seletion, float(n)
                         else:
-                            print('Ingrse un n{umero')
+                            print('Ingrse un número')
                 elif seletion == '2':
                     while True:
                         n = input('Py = ')
                         if n.isnumeric():
                             return seletion, float(n)
                         else:
-                            print('Ingrse un n{umero')
+                            print('Ingrse un número')
 
 
         if 'log' in str(self.utilidad_a):
