@@ -285,7 +285,7 @@ class IntercambioPuro:
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / xa
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','').replace('0.666666666666667','2/3')
             print(f'Xa = {limp(str(der))}')
         
     def fun_d_ya(self):
@@ -297,7 +297,7 @@ class IntercambioPuro:
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / ya
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','').replace('0.666666666666667','2/3')
             print(f'Ya = {limp(str(der))}')
     
     def fun_d_xb(self):
@@ -309,7 +309,7 @@ class IntercambioPuro:
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / xb
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','').replace('0.666666666666667','2/3')
             print(f'Xb = {limp(str(der))}')
 
     def fun_d_yb(self):
@@ -321,7 +321,7 @@ class IntercambioPuro:
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / yb
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+            limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
             print(f'Yb = {limp(str(der))}')
 
     # Funciones de demanda privadas
@@ -372,13 +372,15 @@ class IntercambioPuro:
     # Funciones de excedente de demanda
     def exce_x(self):
         ed = (self.__fun_d_xa() + self.__fun_d_xb()) - (self.dot_ini_x)
-        limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+        limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
         print(f'X = {limp(str(ed))}')
+
 
     def exce_y(self):
         ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
-        limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','')
+        limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
         print(f'Y = {limp(str(ed))}')
+        
     
     # Funciones de excedente de demanda Privadas
     def __exce_x(self):

@@ -82,10 +82,10 @@ def lector(ecu):
             if sym == '+' or sym == '-':
                 if sym == '+':
                     equ_final = elem_x + elem_y
-                    return equ_final, x_exp, y_exp
+                    return equ_final
                 elif sym == '-':
                     equ_final = elem_x - elem_y
-                    return equ_final, x_exp, y_exp
+                    return equ_final
         
     # Detectando exponentes
     for i in range(0,2):
@@ -140,9 +140,9 @@ def lector(ecu):
 #print(lector('xa^3 + ya^2'))
 
 def active():
-    ua = lector('xa^(1/4) * ya^(3/4)')
-    ub = lector('xb^(3/4) * yb^(1/4)')
-    xa_,xb_,ya_,yb_ = 15,5,5,15
+    ua = lector('ln(xa) + 2ln(ya)')
+    ub = lector('2ln(xb) + ln(yb)')
+    xa_,xb_,ya_,yb_ = 3,4,4,3
 
     puro = IntercambioPuro(ua,ub,xa_,xb_,ya_,yb_)
 
