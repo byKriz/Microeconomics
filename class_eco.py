@@ -414,7 +414,7 @@ class IntercambioPuro:
 
         def seletion():
             while True:
-                seletion = input('P numerario: [1]Px o [2]Py')
+                seletion = input('P numerario: [1]Px o [2]Py: ')
                 if seletion == '1':
                     while True:
                         n = input('Px = ')
@@ -429,17 +429,25 @@ class IntercambioPuro:
                             return seletion, float(n)
                         else:
                             print('Ingrse un número')
+                else:
+                    print('Ingrese alguna de las opciones')
 
 
         if 'log' in str(self.utilidad_a):
             n = lista_n()
             # X = -7 + (3*Px + 4*Py)/(2*Px) + 0.666666666666667*(4*Px + 3*Py)/Px
-            ''' Hay que descomponer la función '''
-            fun = n[0] + (n[1]*px_ + n[2]*py_)/(n[3]*px_) + n[4]*(n[5]*px_ + n[6]*py_)/px_
-            py_ = 1
-            fun = n[0] + (n[1]*px_ + n[2]*py_)/(n[3]*px_) + n[4]*(n[5]*px_ + n[6]*py_)/px_
-
-
+            
+            seleccion = seletion()
+            if seleccion[0] == '1':
+                px_ = seleccion[1]
+                fun_elem2 = (n[1]/n[3]) + ((n[2]/n[3])*(py_/px_)) 
+                fun_elem3 = n[4] * (n[5] + ((n[6]*py_)/px_))
+                fun = n[0] + fun_elem2 + fun_elem3
+            elif seleccion[0] == '2':
+                py_ = seleccion[1]
+                fun_elem2 = (n[1]/n[3]) + ((n[2]/n[3])*(py_/px_)) 
+                fun_elem3 = n[4] * (n[5] + ((n[6]*py_)/px_))
+                fun = n[0] + fun_elem2 + fun_elem3
         elif '**' in str(self.utilidad_a):
             n = lista_n()
             pass
