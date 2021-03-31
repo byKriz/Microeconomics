@@ -452,7 +452,7 @@ class IntercambioPuro:
             n = lista_n()
             pass
         
-        return fun
+        return f'{fun} = 0'
 
 
     # Ley de walras
