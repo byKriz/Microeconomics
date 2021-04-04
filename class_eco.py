@@ -462,7 +462,7 @@ class IntercambioPuro:
 
     # Curva de contrato
     def durva_c(self):
-        return 
+        return 'hola'
 
 
 
