@@ -137,7 +137,6 @@ def lector(ecu):
         equ_final = elem_x + elem_y
         return equ_final
 
-#print(lector('xa^3 + ya^2'))
 
 def active():
     ua = lector('ln(xa) + 2ln(ya)')
