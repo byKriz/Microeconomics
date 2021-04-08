@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from constants import dic_sym, λ, x, y, px, py, xa, xb, ya, yb
+from constants import *
 
 
 def _arregla_div(valor):
@@ -463,6 +463,105 @@ class IntercambioPuro:
     # Curva de contrato
     def durva_c(self):
         return 'hola'
+
+
+class IntercambioPuroLK:
+
+    def __init__(self):
+        pass
+        
+class MEGCcloseRd:
+
+    def __init__(self,x1):
+        self.x1 = x1
+        # self.x2 = x2
+        # self.bienestarsocial = u
+        # self.dik = k_
+        # self.dil = l_
+
+    def __lector(self,x):
+        
+        lim = lambda x: x.replace(' ','')
+        quitpar = lambda x: x.replace('(','').replace(')','')
+
+        # Elementos basicos
+        elements_list = lim(x).split('*')
+        coef_l = 1
+        coef_k = 1
+        coef_c1 = 1
+        coef_c2 = 1
+        exp1 = 1
+        exp2 = 1
+        ecu_final = None
+
+        # Detectando Exponentes y Coeficientes
+        def coef_detect(elem):
+
+            def var_detect(e):
+                if 'L1' in e:
+                    var = 'L1'
+                if 'L2' in e:
+                    var = 'L2'
+                if 'C1' in e:
+                    var = 'C1'
+                if 'K1' in e:
+                    var = 'K1'
+                if 'K2' in e:
+                    var = 'K2'
+                if 'C2' in e:
+                    var = 'C2'
+                return var
+
+            coef = ''
+            var = var_detect(elem)
+            for i in elem:
+                if i.isnumeric() or i == '.' or i == '/':
+                    coef += i
+            if coef == '':
+                coef = 1
+            return _arregla_div(coef), var
+            
+
+        ''' Exponentes '''
+        try:
+            for i in range(0,2):
+                if 'L1' in elements_list[i] or 'L2' in elements_list[i] or 'C1' in elements_list[i]:
+                    elem = elements_list[i].split('^')
+                    exp = quitpar(elem[1])
+                    exp1 = _arregla_div(exp)
+
+                elif 'K1' in elements_list[i] or 'K2' in elements_list[i] or 'C2' in elements_list[i]:
+                    exp = elements_list[i].split('^')
+                    exp = quitpar(exp[1])
+                    exp2 = _arregla_div(exp)
+        except:
+            pass
+
+        ''' Coeficientes '''
+        pre_coef1 = coef_detect(elements_list[0])
+        pre_coef2 = coef_detect(elements_list[1])
+
+
+        # Finalizando
+        if 'L' in pre_coef1[1]:
+            if 'L1' in pre_coef1[1]:
+                coef_l = pre_coef1[0]
+                coef_k = pre_coef2[0]
+                ecu_final = (coef_l * (l1 ** exp1)) * (coef_k * (k1 ** exp2))
+            elif 'L2' in pre_coef1[1]:
+                coef_l = pre_coef1[0]
+                coef_k = pre_coef2[0]
+                ecu_final = (coef_l * (l2 ** exp1)) * (coef_k * (k2 ** exp2))
+        elif 'C' in pre_coef1[1]:
+            coef_c1 = pre_coef1[0]
+            coef_c2 = pre_coef2[0]
+            ecu_final = (coef_c1 * (c1 ** exp1)) * (coef_c2 * (c2 ** exp2))
+        return ecu_final
+
+    def show_x1(self):
+        print(self.__lector(self.x1))
+        
+
 
 
 
