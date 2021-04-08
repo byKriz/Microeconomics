@@ -472,12 +472,12 @@ class IntercambioPuroLK:
         
 class MEGCcloseRd:
 
-    def __init__(self,x1):
+    def __init__(self,x1,x2,u):
         self.x1 = x1
-        # self.x2 = x2
-        # self.bienestarsocial = u
-        # self.dik = k_
-        # self.dil = l_
+        self.x2 = x2
+        self.bs = u
+        # self.di_k = k_
+        # self.di_l = l_
 
     def __lector(self,x):
         
@@ -517,6 +517,8 @@ class MEGCcloseRd:
             for i in elem:
                 if i.isnumeric() or i == '.' or i == '/':
                     coef += i
+                else:
+                    break
             if coef == '':
                 coef = 1
             return _arregla_div(coef), var
@@ -560,6 +562,13 @@ class MEGCcloseRd:
 
     def show_x1(self):
         print(self.__lector(self.x1))
+    
+    def show_x2(self):
+        print(self.__lector(self.x2))
+    
+    def show_bs(self):
+        print(self.__lector(self.bs))
+
         
 
 
