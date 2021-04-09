@@ -472,12 +472,14 @@ class IntercambioPuroLK:
         
 class MEGCcloseRd:
 
-    def __init__(self,x1,x2,u):
-        self.x1 = x1
-        self.x2 = x2
-        self.bs = u
-        # self.di_k = k_
-        # self.di_l = l_
+    def __init__(self,x1,x2,bs,dk,dl):
+        self.x1 = self.__lector(x1)
+        self.x2 = self.__lector(x2)
+        self.bs = self.__lector(bs)
+        self.di_k = dk
+        self.di_l = dl
+        self.restric = - λ*(p1*c1 + p2*c2 - y)
+        self.z = self.bs + self.restric
 
     def __lector(self,x):
         
@@ -586,14 +588,42 @@ class MEGCcloseRd:
         return ecu_final
 
     def show_x1(self):
-        print(self.__lector(self.x1))
+        print(self.x1)
     
     def show_x2(self):
-        print(self.__lector(self.x2))
+        print(self.x2)
     
     def show_bs(self):
-        print(self.__lector(self.bs))
+        print(self.bs)
 
+    def show_z(self):
+        print(f'Z = {self.z}')
+
+    def deriv_z_c1(self):
+        return self.z.diff(c1)
+
+    def deriv_z_c2(self):
+        return self.z.diff(c2)
+
+    def deriv_z_λ(self):
+        return self.z.diff(λ)
+
+    def __despeje_z1_c1(self):
+        der_eq = self.restric.diff(c1) * -1
+        izq_eq = self.bs.diff(c1)
+        return izq_eq, der_eq
+
+    def __despeje_z1_c2(self):
+        der_eq = self.restric.diff(c2) * -1
+        izq_eq = self.bs.diff(c2)
+        return izq_eq, der_eq
+
+    def __tms_z1(self):
+        elem_1 = self.__despeje_z1_c1()
+        elem_2 = self.__despeje_z1_c2()
+        izq_eq = elem_1[0] / elem_2[0]
+        der_eq = elem_1[1] / elem_2[1]
+        return izq_eq, der_eq
         
 
 
