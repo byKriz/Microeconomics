@@ -10,9 +10,7 @@ cosa.show_x1()
 cosa.show_x2()
 cosa.show_bs()
 cosa.show_z()
-print(cosa.despeje_z1_c1())
-print(cosa.despeje_z1_c2())
-print(cosa.tms_z1())
+cosa.show_tms()
 
 
 

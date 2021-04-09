@@ -624,6 +624,11 @@ class MEGCcloseRd:
         izq_eq = elem_1[0] / elem_2[0]
         der_eq = elem_1[1] / elem_2[1]
         return izq_eq, der_eq
+
+    def show_tms(self):
+        tms = self.__tms_z1()
+        limp = lambda x: x.replace('0.333333333333333','1/3').replace('**','^').replace('^1.0','')
+        print(f'{limp(str(tms[0]))} = {tms[1]}')
         
 
 
