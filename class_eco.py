@@ -538,8 +538,8 @@ class MEGCcloseRd:
             pass
 
         ''' Coeficientes '''
-        pre_coef1 = coef_detect(elements_list[0])
-        pre_coef2 = coef_detect(elements_list[1])
+        pre_coef1, var1 = coef_detect(elements_list[0])
+        pre_coef2, var2 = coef_detect(elements_list[1])
 
 
         # Finalizando
@@ -582,8 +582,7 @@ class MEGCcloseRd:
                     return (coef1 * (c1 ** exp1)) * (coef2 * (c2 ** exp2))
                 
 
-
-        ecu_final = validator_coef(pre_coef1[0],pre_coef2[0],pre_coef1[1])
+        ecu_final = validator_coef(pre_coef1,pre_coef2,var1)
         return ecu_final
 
     def show_x1(self):
