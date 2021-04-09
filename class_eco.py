@@ -486,10 +486,8 @@ class MEGCcloseRd:
 
         # Elementos basicos
         elements_list = lim(x).split('*')
-        coef_l = 1
-        coef_k = 1
-        coef_c1 = 1
-        coef_c2 = 1
+        coef_1 = 1
+        coef_2 = 1
         exp1 = 1
         exp2 = 1
         ecu_final = None
@@ -545,19 +543,47 @@ class MEGCcloseRd:
 
 
         # Finalizando
-        if 'L' in pre_coef1[1]:
-            if 'L1' in pre_coef1[1]:
-                coef_l = pre_coef1[0]
-                coef_k = pre_coef2[0]
-                ecu_final = (coef_l * (l1 ** exp1)) * (coef_k * (k1 ** exp2))
-            elif 'L2' in pre_coef1[1]:
-                coef_l = pre_coef1[0]
-                coef_k = pre_coef2[0]
-                ecu_final = (coef_l * (l2 ** exp1)) * (coef_k * (k2 ** exp2))
-        elif 'C' in pre_coef1[1]:
-            coef_c1 = pre_coef1[0]
-            coef_c2 = pre_coef2[0]
-            ecu_final = (coef_c1 * (c1 ** exp1)) * (coef_c2 * (c2 ** exp2))
+        def validator_coef(coef1,coef2,sym):
+            if coef1 == 1 and coef2 == 1:
+                ecu_val = 0
+            elif coef1 != 1 and coef2 == 1:
+                ecu_val = 1
+            elif coef1 == 1 and coef2 != 1:
+                ecu_val = 2
+            elif coef1 != 1 and coef2 != 1:
+                ecu_val = 3
+
+            if 'L1' in sym:
+                if ecu_val == 0:
+                    return (l1 ** exp1) * (k1 ** exp2)
+                elif ecu_val == 1:
+                    return (coef1 * (l1 ** exp1)) * (k1 ** exp2)
+                elif ecu_val == 2:
+                    return (l1 ** exp1) * (coef2 * (k1 ** exp2))
+                elif ecu_val == 3:
+                    return (coef1 * (l1 ** exp1)) * (coef2 * (k1 ** exp2))
+            elif 'L2' in sym:
+                if ecu_val == 0:
+                    return (l2 ** exp1) * (k2 ** exp2)
+                elif ecu_val == 1:
+                    return (coef1 * (l2 ** exp1)) * (k2 ** exp2)
+                elif ecu_val == 2:
+                    return (l2 ** exp1) * (coef2 * (k2 ** exp2))
+                elif ecu_val == 3:
+                    return (coef1 * (l2 ** exp1)) * (coef2 * (k2 ** exp2))
+            elif 'C' in sym:
+                if ecu_val == 0:
+                    return (c1 ** exp1) * (c2 ** exp2)
+                elif ecu_val == 1:
+                    return (coef1 * (c1 ** exp1)) * (c2 ** exp2)
+                elif ecu_val == 2:
+                    return (c1 ** exp1) * (coef2 * (c2 ** exp2))
+                elif ecu_val == 3:
+                    return (coef1 * (c1 ** exp1)) * (coef2 * (c2 ** exp2))
+                
+
+
+        ecu_final = validator_coef(pre_coef1[0],pre_coef2[0],pre_coef1[1])
         return ecu_final
 
     def show_x1(self):
