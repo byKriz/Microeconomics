@@ -630,6 +630,7 @@ class MEGCcloseRd:
         limp = lambda x: x.replace('0.333333333333333','1/3').replace('**','^').replace('^1.0','')
         print(f'{limp(str(tms[0]))} = {tms[1]}')
         
+        
 
 
 
