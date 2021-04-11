@@ -430,14 +430,14 @@ class IntercambioPuro:
                         if n.isnumeric():
                             return seletion, float(n)
                         else:
-                            print('Ingrse un número')
+                            print('Ingrese un número')
                 elif seletion == '2':
                     while True:
                         n = input('Py = ')
                         if n.isnumeric():
                             return seletion, float(n)
                         else:
-                            print('Ingrse un número')
+                            print('Ingrese un número')
                 else:
                     print('Ingrese alguna de las opciones')
 
@@ -468,7 +468,7 @@ class IntercambioPuro:
         print(wal)
 
     # Curva de contrato
-    def durva_c(self):
+    def curva_c(self):
         return 'hola'
 
 
@@ -492,14 +492,14 @@ class MEGCcloseRd:
     def __lector(self, x):
 
         lim = lambda x: x.replace(' ', '')
-        quitpar = lambda x: x.replace('(', '').replace(')', '')
+        quitpar = lambda ecu_fun: ecu_fun.replace('(', '').replace(')', '')
 
-        # Elementos basicos
+        # Basics Elements
         elements_list = lim(x).split('*')
         exp1 = 1
         exp2 = 1
 
-        # Detectando Exponentes y Coeficientes
+        # Detecting Exponents and Coefficients
         def coef_detect(element):
 
             def var_detect(e):
@@ -528,7 +528,7 @@ class MEGCcloseRd:
                 coef = 1
             return _arregla_div(coef), var
 
-        ''' Exponentes '''
+        ''' Exponents '''
         try:
             for i in range(0, 2):
                 if 'L1' in elements_list[i] or 'L2' in elements_list[i] or 'C1' in elements_list[i]:
@@ -543,11 +543,11 @@ class MEGCcloseRd:
         except:
             pass
 
-        ''' Coeficientes '''
+        ''' Coefficient's '''
         pre_coef1, var1 = coef_detect(elements_list[0])
         pre_coef2, var2 = coef_detect(elements_list[1])
 
-        # Finalizando
+        # Finalization
         def validator_coef(coef1, coef2, sym):
             if coef1 == 1 and coef2 == 1:
                 ecu_val = 0
@@ -656,6 +656,10 @@ class MEGCcloseRd:
 
     def fun_d_p2(self):
         p1_ = self.__despej_p1()
-        limp = lambda function: function.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
+        limp = lambda func: func.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
         function = p1_[0]*c1 + c2*p2
-        print(limp(str(function)))
+        return limp(str(function))
+
+    def fun_d_p1(self):
+        p2_ = self.__despej_p2()
+        return p2_
