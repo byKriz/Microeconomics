@@ -37,6 +37,7 @@ class EcuacionLineal:
 
     def showg(self, rgb='red'):
         def fx(x): return (self.var * x) + self.inde
+
         x = np.linspace(0, 50, 100)
         graphic = fx(x)
         plt.plot(x, graphic, color=f'{rgb}')
@@ -44,6 +45,7 @@ class EcuacionLineal:
 
     def element_g(self):
         def fx(x): return (self.var * x) + self.inde
+
         x = np.linspace(0, 50, 100)
         graphic = fx(x)
         return x, graphic
@@ -56,7 +58,7 @@ class Ecuacion2doGrado(EcuacionLineal):
         self.inde = _arregla_div(inde)
         self.sym = dic_sym[sym]
         self.func = (self.var2 * self.sym ** 2) + \
-            (self.var * self.sym) + self.inde
+                    (self.var * self.sym) + self.inde
 
     def derivate_2(self):
         y = self.func
@@ -91,14 +93,16 @@ class Ecuacion2doGrado(EcuacionLineal):
         return f'{self.var2}{str(self.sym)}^2 {sig1} {var}{str(self.sym)} {sig2} {inde}'
 
     def showg(self, rgb='red'):
-        def fx(x): return (self.var2 * x**2) + (self.var * x) + self.inde
+        def fx(x): return (self.var2 * x ** 2) + (self.var * x) + self.inde
+
         x = np.linspace(0, 50, 100)
         graphic = fx(x)
         plt.plot(x, graphic, color=f'{rgb}')
         plt.show()
 
     def element_g(self):
-        def fx(x): return (self.var2 * x**2) + (self.var * x) + self.inde
+        def fx(x): return (self.var2 * x ** 2) + (self.var * x) + self.inde
+
         x = np.linspace(0, 50, 100)
         graphic = fx(x)
         return x, graphic
@@ -109,7 +113,7 @@ class MaxUtilidad:
     def __init__(self, fun_utilidad, fun_restric):
         self.fun_utilidad = fun_utilidad
         self.fun_restric = fun_restric
-        self.z = fun_utilidad - λ*(fun_restric)
+        self.z = fun_utilidad - λ * fun_restric
 
     def derivate_x(self):
         return self.z.diff(x)
@@ -136,10 +140,10 @@ class IntercambioPuro:
         # self.yb_exp = yb_exp
         self.dot_ini_x = dot_xa + dot_xb
         self.dot_ini_y = dot_ya + dot_yb
-        self.restric_a = px*xa + py*ya - dot_xa*px - dot_ya*py
-        self.restric_b = px*xb + py*yb - dot_xb*px - dot_yb*py
-        self.fun_z1 = Ua - λ*(self.restric_a)
-        self.fun_z2 = Ub - λ*(self.restric_b)
+        self.restric_a = px * xa + py * ya - dot_xa * px - dot_ya * py
+        self.restric_b = px * xb + py * yb - dot_xb * px - dot_yb * py
+        self.fun_z1 = Ua - λ * self.restric_a
+        self.fun_z2 = Ub - λ * self.restric_b
 
     def __str__(self):
         return f'Z1 = {self.fun_z1}\nZ2 = {self.fun_z2}'
@@ -163,32 +167,31 @@ class IntercambioPuro:
     def deriv_z2_λ(self):
         return self.fun_z2.diff(λ)
 
-
     # Despejes de las funciones λ
     def despeje_z1_xa(self):
 
-        restric = - λ*(self.restric_a)
+        restric = - λ * self.restric_a
         derv_ua = self.utilidad_a.diff(xa)
         derv_lan = restric.diff(xa) * -1
         elem_list = [derv_ua, derv_lan]
         return elem_list
-    
+
     def despeje_z1_ya(self):
-        restric = - λ*(self.restric_a)
+        restric = - λ * self.restric_a
         derv_ua = self.utilidad_a.diff(ya)
         derv_lan = restric.diff(ya) * -1
         elem_list = [derv_ua, derv_lan]
         return elem_list
 
     def despeje_z2_xb(self):
-        restric = - λ*(self.restric_b)
+        restric = - λ * self.restric_b
         derv_ub = self.utilidad_b.diff(xb)
         derv_lan = restric.diff(xb) * -1
         elem_list = [derv_ub, derv_lan]
         return elem_list
-    
+
     def despeje_z2_yb(self):
-        restric = - λ*(self.restric_b)
+        restric = - λ * self.restric_b
         derv_ub = self.utilidad_b.diff(yb)
         derv_lan = restric.diff(yb) * -1
         elem_list = [derv_ub, derv_lan]
@@ -200,22 +203,22 @@ class IntercambioPuro:
         elem_ya = self.despeje_z1_ya()
         izq_eq = elem_xa[0] / elem_ya[0]
         der_eq = elem_xa[1] / elem_ya[1]
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('^1.0','')
+        limp = lambda x: str(x).replace('**', '^').replace('*', '').replace('^1.0', '')
         print(f'TMS1 = {limp(izq_eq)} = {limp(der_eq)}')
-    
+
     def __tms_z1_elem(self):
         elem_xa = self.despeje_z1_xa()
         elem_ya = self.despeje_z1_ya()
         izq_eq = elem_xa[0] / elem_ya[0]
         der_eq = elem_xa[1] / elem_ya[1]
-        return izq_eq,der_eq
+        return izq_eq, der_eq
 
     def tms_z2(self):
         elem_xa = self.despeje_z2_xb()
         elem_ya = self.despeje_z2_yb()
         izq_eq = elem_xa[0] / elem_ya[0]
         der_eq = elem_xa[1] / elem_ya[1]
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('^1.0','')
+        limp = lambda x: str(x).replace('**', '^').replace('*', '').replace('^1.0', '')
         print(f'TMS2 = {limp(izq_eq)} = {limp(der_eq)}')
 
     def __tms_z2_elem(self):
@@ -223,33 +226,37 @@ class IntercambioPuro:
         elem_yb = self.despeje_z2_yb()
         izq_eq = elem_xb[0] / elem_yb[0]
         der_eq = elem_xb[1] / elem_yb[1]
-        return izq_eq,der_eq
-    
+        return izq_eq, der_eq
+
     # Ecuaciones Óptimas
     def ya_opt(self):
         elements = self.__tms_z1_elem()
         conver = (elements[0] / ya) ** (-1)
         despeje = elements[1] * conver
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xa','Xa').replace('^1.0','').replace('0.333333333333333','1/3*')
+        limp = lambda x: str(x).replace('**', '^').replace('*', '').replace('xa', 'Xa').replace('^1.0', '').replace(
+            '0.333333333333333', '1/3*')
         print(f'Ya = {limp(despeje)}')
 
     def yb_opt(self):
         elements = self.__tms_z2_elem()
         conver = (elements[0] / yb) ** (-1)
         despeje = elements[1] * conver
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('xb','Xb').replace('^1.0','').replace('0.333333333333333','1/3*')
+        limp = lambda x: str(x).replace('**', '^').replace('*', '').replace('xb', 'Xb').replace('^1.0', '').replace(
+            '0.333333333333333', '1/3*')
         print(f'Yb = {limp(despeje)}')
 
     def xa_opt(self):
         elements = self.__tms_z1_elem()
-        conver = (elements[0] * ((xa*py) / px))
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('ya','Ya').replace('^1.0','').replace('0.333333333333333','1/3')
+        conver = (elements[0] * ((xa * py) / px))
+        limp = lambda x: str(x).replace('**', '^').replace('*', '').replace('ya', 'Ya').replace('^1.0', '').replace(
+            '0.333333333333333', '1/3')
         print(f'Xa = {limp(conver)}')
 
     def xb_opt(self):
         elements = self.__tms_z2_elem()
-        conver = (elements[0] * ((xb*py) / px))
-        limp = lambda x: str(x).replace('**','^').replace('*','').replace('yb','Yb').replace('^1.0','').replace('0.333333333333333','1/3')
+        conver = (elements[0] * ((xb * py) / px))
+        limp = lambda x: str(x).replace('**', '^').replace('*', '').replace('yb', 'Yb').replace('^1.0', '').replace(
+            '0.333333333333333', '1/3')
         print(f'Xb = {limp(conver)}')
 
     # Ecuaciones Óptimas Privadas
@@ -264,52 +271,55 @@ class IntercambioPuro:
         conver = (elements[0] / yb) ** (-1)
         despeje = elements[1] * conver
         return despeje
-    
+
     def __xa_opt(self):
         elements = self.__tms_z1_elem()
-        conver = (elements[0] * ((xa*py) / px))
+        conver = (elements[0] * ((xa * py) / px))
         return conver
 
     def __xb_opt(self):
         elements = self.__tms_z2_elem()
-        conver = (elements[0] * ((xb*py) / px))
+        conver = (elements[0] * ((xb * py) / px))
         return conver
-    
+
     # Funciones de demanda
     def fun_d_xa(self):
         if '**(' in str(self.__ya_opt()):
             pass
         else:
             ya_op = self.__ya_opt()
-            izq = (px*xa) + (py*ya_op)
+            izq = (px * xa) + (py * ya_op)
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / xa
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','').replace('0.666666666666667','2/3')
+            limp = lambda x: x.replace('0.333333333333333', '1/3').replace('**1.0', '').replace('0.666666666666667',
+                                                                                                '2/3')
             print(f'Xa = {limp(str(der))}')
-        
+
     def fun_d_ya(self):
         if '**(' in str(self.__xa_opt()):
             pass
         else:
             xa_op = self.__xa_opt()
-            izq = (px*xa_op) + (py*ya)
+            izq = (px * xa_op) + (py * ya)
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / ya
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','').replace('0.666666666666667','2/3')
+            limp = lambda x: x.replace('0.333333333333333', '1/3').replace('**1.0', '').replace('0.666666666666667',
+                                                                                                '2/3')
             print(f'Ya = {limp(str(der))}')
-    
+
     def fun_d_xb(self):
         if '**(' in str(self.__yb_opt()):
             pass
         else:
             yb_op = self.__yb_opt()
-            izq = (px*xb) + (py*yb_op)
+            izq = (px * xb) + (py * yb_op)
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / xb
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('**1.0','').replace('0.666666666666667','2/3')
+            limp = lambda x: x.replace('0.333333333333333', '1/3').replace('**1.0', '').replace('0.666666666666667',
+                                                                                                '2/3')
             print(f'Xb = {limp(str(der))}')
 
     def fun_d_yb(self):
@@ -317,11 +327,12 @@ class IntercambioPuro:
             pass
         else:
             xb_op = self.__xb_opt()
-            izq = (px*xb_op) + (py*yb)
+            izq = (px * xb_op) + (py * yb)
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / yb
             der = der / izq
-            limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
+            limp = lambda x: x.replace('0.333333333333333', '1/3').replace('0.666666666666667', '2/3').replace('**1.0',
+                                                                                                               '')
             print(f'Yb = {limp(str(der))}')
 
     # Funciones de demanda privadas
@@ -330,29 +341,29 @@ class IntercambioPuro:
             pass
         else:
             ya_op = self.__ya_opt()
-            izq = (px*xa) + (py*ya_op)
+            izq = (px * xa) + (py * ya_op)
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / xa
             der = der / izq
             return der
-        
+
     def __fun_d_ya(self):
         if '**(' in str(self.__xa_opt()):
             pass
         else:
             xa_op = self.__xa_opt()
-            izq = (px*xa_op) + (py*ya)
+            izq = (px * xa_op) + (py * ya)
             der = (self.dot_xa * px) + (self.dot_ya * py)
             izq = izq / ya
             der = der / izq
             return der
-    
+
     def __fun_d_xb(self):
         if '**(' in str(self.__yb_opt()):
             pass
         else:
             yb_op = self.__yb_opt()
-            izq = (px*xb) + (py*yb_op)
+            izq = (px * xb) + (py * yb_op)
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / xb
             der = der / izq
@@ -363,7 +374,7 @@ class IntercambioPuro:
             pass
         else:
             xb_op = self.__xb_opt()
-            izq = (px*xb_op) + (py*yb)
+            izq = (px * xb_op) + (py * yb)
             der = (self.dot_xb * px) + (self.dot_yb * py)
             izq = izq / yb
             der = der / izq
@@ -371,24 +382,22 @@ class IntercambioPuro:
 
     # Funciones de excedente de demanda
     def exce_x(self):
-        ed = (self.__fun_d_xa() + self.__fun_d_xb()) - (self.dot_ini_x)
-        limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
+        ed = (self.__fun_d_xa() + self.__fun_d_xb()) - self.dot_ini_x
+        limp = lambda x: x.replace('0.333333333333333', '1/3').replace('0.666666666666667', '2/3').replace('**1.0', '')
         print(f'X = {limp(str(ed))} = 0')
 
-
     def exce_y(self):
-        ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
-        limp = lambda x: x.replace('0.333333333333333','1/3').replace('0.666666666666667','2/3').replace('**1.0','')
+        ed = (self.__fun_d_ya() + self.__fun_d_yb()) - self.dot_ini_y
+        limp = lambda x: x.replace('0.333333333333333', '1/3').replace('0.666666666666667', '2/3').replace('**1.0', '')
         print(f'Y = {limp(str(ed))} = 0')
 
-    
     # Funciones de excedente de demanda Privadas
     def __exce_x(self):
-        ed = (self.__fun_d_xa() + self.__fun_d_xb()) - (self.dot_ini_x)
+        ed = (self.__fun_d_xa() + self.__fun_d_xb()) - self.dot_ini_x
         return ed
 
     def __exce_y(self):
-        ed = (self.__fun_d_ya() + self.__fun_d_yb()) - (self.dot_ini_y)
+        ed = (self.__fun_d_ya() + self.__fun_d_yb()) - self.dot_ini_y
         return ed
 
     # Solución del sistemas
@@ -405,7 +414,7 @@ class IntercambioPuro:
             for i, c in enumerate(x_valor):
                 if c.isnumeric() or c in '.-':
                     n += c
-                    if x_valor[i+1] not in comp:
+                    if x_valor[i + 1] not in comp:
                         n_list.append(float(n))
                         n = ''
                 else:
@@ -432,28 +441,26 @@ class IntercambioPuro:
                 else:
                     print('Ingrese alguna de las opciones')
 
-
         if 'log' in str(self.utilidad_a):
             n = lista_n()
             # X = -7 + (3*Px + 4*Py)/(2*Px) + 0.666666666666667*(4*Px + 3*Py)/Px
-            
+
             seleccion = seletion()
             if seleccion[0] == '1':
                 px_ = seleccion[1]
-                fun_elem2 = (n[1]/n[3]) + ((n[2]/n[3])*(py_/px_)) 
-                fun_elem3 = n[4] * (n[5] + ((n[6]*py_)/px_))
+                fun_elem2 = (n[1] / n[3]) + ((n[2] / n[3]) * (py_ / px_))
+                fun_elem3 = n[4] * (n[5] + ((n[6] * py_) / px_))
                 fun = n[0] + fun_elem2 + fun_elem3
             elif seleccion[0] == '2':
                 py_ = seleccion[1]
-                fun_elem2 = (n[1]/n[3]) + ((n[2]/n[3])*(py_/px_)) 
-                fun_elem3 = n[4] * (n[5] + ((n[6]*py_)/px_))
+                fun_elem2 = (n[1] / n[3]) + ((n[2] / n[3]) * (py_ / px_))
+                fun_elem3 = n[4] * (n[5] + ((n[6] * py_) / px_))
                 fun = n[0] + fun_elem2 + fun_elem3
         elif '**' in str(self.utilidad_a):
             n = lista_n()
             pass
-        
-        return f'{fun} = 0'
 
+        return f'{fun} = 0'
 
     # Ley de walras
     def ley_wal(self):
@@ -469,64 +476,61 @@ class IntercambioPuroLK:
 
     def __init__(self):
         pass
-        
+
+
 class MEGCcloseRd:
 
-    def __init__(self,x1,x2,bs,dk,dl):
+    def __init__(self, x1, x2, bs, dk, dl):
         self.x1 = self.__lector(x1)
         self.x2 = self.__lector(x2)
         self.bs = self.__lector(bs)
         self.di_k = dk
         self.di_l = dl
-        self.restric = - λ*(p1*c1 + p2*c2 - y)
+        self.restric = - λ * (p1 * c1 + p2 * c2 - y)
         self.z = self.bs + self.restric
 
-    def __lector(self,x):
-        
-        lim = lambda x: x.replace(' ','')
-        quitpar = lambda x: x.replace('(','').replace(')','')
+    def __lector(self, x):
+
+        lim = lambda x: x.replace(' ', '')
+        quitpar = lambda x: x.replace('(', '').replace(')', '')
 
         # Elementos basicos
         elements_list = lim(x).split('*')
-        coef_1 = 1
-        coef_2 = 1
         exp1 = 1
         exp2 = 1
-        ecu_final = None
 
         # Detectando Exponentes y Coeficientes
-        def coef_detect(elem):
+        def coef_detect(element):
 
             def var_detect(e):
                 if 'L1' in e:
-                    var = 'L1'
+                    variable = 'L1'
                 if 'L2' in e:
-                    var = 'L2'
+                    variable = 'L2'
                 if 'C1' in e:
-                    var = 'C1'
+                    variable = 'C1'
                 if 'K1' in e:
-                    var = 'K1'
+                    variable = 'K1'
                 if 'K2' in e:
-                    var = 'K2'
+                    variable = 'K2'
                 if 'C2' in e:
-                    var = 'C2'
-                return var
+                    variable = 'C2'
+                return variable
 
             coef = ''
-            var = var_detect(elem)
-            for i in elem:
-                if i.isnumeric() or i == '.' or i == '/':
-                    coef += i
+            var = var_detect(element)
+            for num in element:
+                if num.isnumeric() or num == '.' or num == '/':
+                    coef += num
                 else:
                     break
             if coef == '':
                 coef = 1
             return _arregla_div(coef), var
-            
 
         ''' Exponentes '''
         try:
-            for i in range(0,2):
+            for i in range(0, 2):
                 if 'L1' in elements_list[i] or 'L2' in elements_list[i] or 'C1' in elements_list[i]:
                     elem = elements_list[i].split('^')
                     exp = quitpar(elem[1])
@@ -543,9 +547,8 @@ class MEGCcloseRd:
         pre_coef1, var1 = coef_detect(elements_list[0])
         pre_coef2, var2 = coef_detect(elements_list[1])
 
-
         # Finalizando
-        def validator_coef(coef1,coef2,sym):
+        def validator_coef(coef1, coef2, sym):
             if coef1 == 1 and coef2 == 1:
                 ecu_val = 0
             elif coef1 != 1 and coef2 == 1:
@@ -582,17 +585,16 @@ class MEGCcloseRd:
                     return (c1 ** exp1) * (coef2 * (c2 ** exp2))
                 elif ecu_val == 3:
                     return (coef1 * (c1 ** exp1)) * (coef2 * (c2 ** exp2))
-                
 
-        ecu_final = validator_coef(pre_coef1,pre_coef2,var1)
+        ecu_final = validator_coef(pre_coef1, pre_coef2, var1)
         return ecu_final
 
     def show_x1(self):
         print(self.x1)
-    
+
     def show_x2(self):
         print(self.x2)
-    
+
     def show_bs(self):
         print(self.bs)
 
@@ -605,7 +607,7 @@ class MEGCcloseRd:
     def deriv_z_c2(self):
         return self.z.diff(c2)
 
-    def deriv_z_λ(self):
+    def deriv_z_lamda(self):
         return self.z.diff(λ)
 
     def __despeje_z1_c1(self):
@@ -627,22 +629,33 @@ class MEGCcloseRd:
 
     def show_tms(self):
         tms = self.__tms_z1()
-        limp = lambda x: x.replace('0.333333333333333','1/3').replace('**','^').replace('^1.0','')
+        limp = lambda function: function.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
         print(f'{limp(str(tms[0]))} = {tms[1]}')
-        
-        
 
+    def __despej_p1(self):
+        izq, der = self.__tms_z1()
+        der = der * p2
+        izq = izq * p2
+        return izq, der
 
+    def __despej_p2(self):
+        izq, der = self.__tms_z1()
+        der = (der / p1) ** -1
+        izq = (izq ** -1) * p1
+        return izq, der
 
+    def show_p1(self):
+        p1_des = self.__despej_p1()
+        limp = lambda function: function.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
+        print(f'{limp(p1_des[0])} = {p1_des[1]}')
 
+    def show_p2(self):
+        p2_des = self.__despej_p2()
+        limp = lambda function: function.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
+        print(f'{limp(p2_des[0])} = {p2_des[1]}')
 
-
-
-
-    
-
-
-
-
-    
-
+    def fun_d_p2(self):
+        p1_ = self.__despej_p1()
+        limp = lambda function: function.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
+        function = p1_[0]*c1 + c2*p2
+        print(limp(str(function)))

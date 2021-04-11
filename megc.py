@@ -6,12 +6,7 @@ bs = 'C1^(1/4) * C2^(3/4)'
 
 cosa = MEGCcloseRd(x1,x2,bs,200,200)
 
-cosa.show_x1()
-cosa.show_x2()
-cosa.show_bs()
-cosa.show_z()
-cosa.show_tms()
-
+cosa.fun_d_p2()
 
 
 
