@@ -1,19 +1,14 @@
 from class_eco import MEGCcloseRd
 
-x1 = 'L1^(1/2) * K1^(1/2)'
+x1 = 'L1^(1/4) * K1^(1/4)'
 x2 = 'L2^(1/5) * K2^(1/5)'
 bs = 'C1^(1/4) * C2^(3/4)'
 
 cosa = MEGCcloseRd(x1,x2,bs,200,200)
 
-cosa.fun_d_p2()
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    print(cosa.x1)
+    print(cosa.fun_d_p2())
+    print(cosa.fun_d_p1())
+    cosa.show_fun_d_c1()
+    cosa.show_fun_d_c2()

@@ -589,6 +589,17 @@ class MEGCcloseRd:
         ecu_final = validator_coef(pre_coef1, pre_coef2, var1)
         return ecu_final
 
+    def __coef_detect(self, fun):
+        coef = ''
+        for num in fun:
+            if num.isnumeric() or num == '.' or num == '/' or num == '-':
+                coef += num
+            else:
+                break
+        if coef == '':
+            coef = 1
+        return _arregla_div(coef)
+
     def show_x1(self):
         print(self.x1)
 
@@ -662,4 +673,46 @@ class MEGCcloseRd:
 
     def fun_d_p1(self):
         p2_ = self.__despej_p2()
-        return p2_
+        limp = lambda func: func.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
+        function = p1*c1 + c2*p2_[0]
+        return limp(str(function))
+
+    def __lector_fun_d(self):
+        fun_p2 = self.fun_d_p2()
+        fun_p1 = self.fun_d_p1()
+        list_p2 = fun_p2.split()
+        list_p1 = fun_p1.split()
+        list_p1.sort()
+        list_p2.sort()
+
+        coef_p1 = self.__coef_detect(list_p1[1])
+        coef_p2 = self.__coef_detect(list_p2[1])
+
+        final_fun_p2 = c2*p2 + coef_p2*c2*p2
+        final_fun_p1 = c1*p1 + coef_p1*c1*p1
+        return final_fun_p1, final_fun_p2
+
+    def __fun_d_c1(self):
+        fun_c = self.__lector_fun_d()
+        coef = fun_c[0] / (c1*p1)
+        demand_c1 = y / (coef*p1)
+        return demand_c1
+
+    def __fun_d_c2(self):
+        fun_c = self.__lector_fun_d()
+        coef = fun_c[1] / (c2 * p2)
+        demand_c2 = y / (coef * p2)
+        return demand_c2
+
+    def show_fun_d_c1(self):
+        c1 = self.__fun_d_c1()
+        print(f'C1 = {c1}')
+
+    def show_fun_d_c2(self):
+        c2 = self.__fun_d_c2()
+        print(f'C2 = {c2}')
+
+    # Derivacion de la demanda de factores
+
+
+
