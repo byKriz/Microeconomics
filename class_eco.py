@@ -10,6 +10,20 @@ def _arregla_div(valor):
     return float(valor)
 
 
+def isdecinumeric_exp(num):
+    if '.' in num:
+        elements = num.split('.')
+        if elements[0].isnumeric() and elements[1].isnumeric() and len(elements) == 2:
+            return True
+        else:
+            return False
+    else:
+        if num.isnumeric():
+            return True
+        else:
+            return False
+
+
 class EcuacionLineal:
 
     def __init__(self, var, inde=0, sym='x'):
@@ -668,16 +682,16 @@ class MEGCcloseRd:
     def fun_d_p2(self):
         p1_ = self.__despej_p1()
         limp = lambda func: func.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
-        function = p1_[0]*c1 + c2*p2
+        function = p1_[0] * c1 + c2 * p2
         return limp(str(function))
 
     def fun_d_p1(self):
         p2_ = self.__despej_p2()
         limp = lambda func: func.replace('0.333333333333333', '1/3').replace('**', '^').replace('^1.0', '')
-        function = p1*c1 + c2*p2_[0]
+        function = p1 * c1 + c2 * p2_[0]
         return limp(str(function))
 
-    def __lector_fun_d(self):
+    def __detector_fun_d(self):
         fun_p2 = self.fun_d_p2()
         fun_p1 = self.fun_d_p1()
         list_p2 = fun_p2.split()
@@ -688,31 +702,59 @@ class MEGCcloseRd:
         coef_p1 = self.__coef_detect(list_p1[1])
         coef_p2 = self.__coef_detect(list_p2[1])
 
-        final_fun_p2 = c2*p2 + coef_p2*c2*p2
-        final_fun_p1 = c1*p1 + coef_p1*c1*p1
+        final_fun_p2 = c2 * p2 + coef_p2 * c2 * p2
+        final_fun_p1 = c1 * p1 + coef_p1 * c1 * p1
         return final_fun_p1, final_fun_p2
 
     def __fun_d_c1(self):
-        fun_c = self.__lector_fun_d()
-        coef = fun_c[0] / (c1*p1)
-        demand_c1 = y / (coef*p1)
+        fun_c = self.__detector_fun_d()
+        coef = fun_c[0] / (c1 * p1)
+        demand_c1 = y / (coef * p1)
         return demand_c1
 
     def __fun_d_c2(self):
-        fun_c = self.__lector_fun_d()
+        fun_c = self.__detector_fun_d()
         coef = fun_c[1] / (c2 * p2)
         demand_c2 = y / (coef * p2)
         return demand_c2
 
     def show_fun_d_c1(self):
-        c1 = self.__fun_d_c1()
-        print(f'C1 = {c1}')
+        c1_fun = self.__fun_d_c1()
+        print(f'C1 = {c1_fun}')
 
     def show_fun_d_c2(self):
-        c2 = self.__fun_d_c2()
-        print(f'C2 = {c2}')
+        c2_fun = self.__fun_d_c2()
+        print(f'C2 = {c2_fun}')
 
     # Derivacion de la demanda de factores
+    def __lector_lk(self, x1_2):
+        read_fun = str(x1_2).replace('**', '^').split('*')
+        k_exp = 1
+        l_exp = 1
 
+        for i in range(len(read_fun)):
+            read_fun[i] = read_fun[i].split('^')
+        k_coef = self.__coef_detect(read_fun[0][0])
+        l_coef = self.__coef_detect(read_fun[1][0])
+        if isdecinumeric_exp(read_fun[0][1]):
+            k_exp = float(read_fun[0][1])
+        if isdecinumeric_exp(read_fun[1][1]):
+            l_exp = float(read_fun[1][1])
 
+        return k_coef, k_exp, l_coef, l_exp
 
+    def despeje_l1(self):
+        k_coef, k_exp, l_coef, l_exp = self.__lector_lk(self.x1)
+        if k_coef != 1 and l_coef != 1:
+            l_var = (x1 / (l_coef * k_coef * (k1 ** k_exp))) ** (l_exp ** -1)
+        else:
+            l_var = (x1 / (k1 ** k_exp)) ** (l_exp ** -1)
+        return l_var
+
+    def despeje_k1(self):
+        k_coef, k_exp, l_coef, l_exp = self.__lector_lk(self.x1)
+        if k_coef != 1 and l_coef != 1:
+            k_var = (x1 / (l_coef * k_coef * (l1 ** l_exp))) ** (k_exp ** -1)
+        else:
+            k_var = (x1 / (l1 ** l_exp)) ** (k_exp ** -1)
+        return k_var
