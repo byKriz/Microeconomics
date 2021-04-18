@@ -758,3 +758,21 @@ class MEGCcloseRd:
         else:
             k_var = (x1 / (l1 ** l_exp)) ** (k_exp ** -1)
         return k_var
+
+    def despeje_l2(self):
+        k_coef, k_exp, l_coef, l_exp = self.__lector_lk(self.x2)
+        if k_coef != 1 and l_coef != 1:
+            l_var = (x2 / (l_coef * k_coef * (k2 ** k_exp))) ** (l_exp ** -1)
+        else:
+            l_var = (x2 / (k2 ** k_exp)) ** (l_exp ** -1)
+        return l_var
+
+    def despeje_k2(self):
+        k_coef, k_exp, l_coef, l_exp = self.__lector_lk(self.x2)
+        if k_coef != 1 and l_coef != 1:
+            k_var = (x2 / (l_coef * k_coef * (l2 ** l_exp))) ** (k_exp ** -1)
+        else:
+            k_var = (x2 / (l2 ** l_exp)) ** (k_exp ** -1)
+        return k_var
+
+    

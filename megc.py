@@ -10,3 +10,7 @@ if __name__ == '__main__':
     print(cosa.x1)
     print(cosa.despeje_l1())
     print(cosa.despeje_k1())
+    print()
+    print(cosa.x2)
+    print(cosa.despeje_l2())
+    print(cosa.despeje_k2())
