@@ -774,5 +774,11 @@ class MEGCcloseRd:
         else:
             k_var = (x2 ** (k_exp ** -1)) / (l2 ** (l_exp * (k_exp ** -1)))
         return k_var
-
     
+    def demand_kapital_1(self):
+        l_var = self.despeje_l1()
+        function = (r * k1) + (w * l_var)
+        func_deriv_k = function.diff(k1)
+        print(function)
+        print(func_deriv_k)
+        print(func_deriv_k - r)

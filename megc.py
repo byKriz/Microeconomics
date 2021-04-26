@@ -14,3 +14,5 @@ if __name__ == '__main__':
     print(cosa.x2)
     print(cosa.despeje_l2())
     print(cosa.despeje_k2())
+    print()
+    cosa.demand_kapital_1()
