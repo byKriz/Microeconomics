@@ -137,40 +137,42 @@ def lector(ecu):
         equ_final = elem_x + elem_y
         return equ_final
 
+cambia_factor_c1 = lambda element: element.replace('xa','c1x').replace('ya','c1y').replace('Xa','C1x').replace('Ya','C1y')
+cambia_factor_c2 = lambda element: element.replace('xb','c2x').replace('yb','c2y').replace('Xb','C2x').replace('Yb','C2y')
 
 def active():
-    ua = lector('ln(xa) + 2ln(ya)')
+    ua = lector('ln(xa) + ln(ya)')
     ub = lector('2ln(xb) + ln(yb)')
-    xa_,xb_,ya_,yb_ = 3,4,4,3
+    xa_,xb_,ya_,yb_ = 1,1,1,3
 
     puro = IntercambioPuro(ua,ub,xa_,xb_,ya_,yb_)
 
     print('Maximización de Ua')
 
-    print(f'Z1 = {puro.fun_z1}')
-    puro.tms_z1()
-    puro.ya_opt()
-    puro.xa_opt()
+    print(cambia_factor_c1(f'Z1 = {puro.fun_z1}'))
+    print(cambia_factor_c1(puro.tms_z1()))
+    print(cambia_factor_c1(puro.ya_opt()))
+    print(cambia_factor_c1(puro.xa_opt()))
     print('Funciones de Demanda')
-    puro.fun_d_xa()
-    puro.fun_d_ya()
+    print(cambia_factor_c1(puro.fun_d_xa()))
+    print(cambia_factor_c1(puro.fun_d_ya()))
 
     print()
     print('Maximización de Ub')
-    print(f'Z2 = {puro.fun_z2}')
-    puro.tms_z2()
-    puro.yb_opt()
-    puro.xb_opt()
+    print(cambia_factor_c2(f'Z2 = {puro.fun_z2}'))
+    print(cambia_factor_c2(puro.tms_z2()))
+    print(cambia_factor_c2(puro.yb_opt()))
+    print(cambia_factor_c2(puro.xb_opt()))
 
     print()
     print('Funciones de Demanda')
-    puro.fun_d_xb()
-    puro.fun_d_yb()
+    print(cambia_factor_c2(puro.fun_d_xb()))
+    print(cambia_factor_c2(puro.fun_d_yb()))
 
     print()
     print('Funciones de Excedente de Consumidor')
-    puro.exce_x()
-    puro.exce_y()
+    print(puro.exce_x())
+    print(puro.exce_y())
 
     print(puro.sistem_solution())
 
